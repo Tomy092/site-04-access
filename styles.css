@@ -48,9 +48,17 @@ body {
 .logo {
   display: flex;
   align-items: center;
+  height: 100%;
   gap: 0.6rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
+}/* LOGO */
+
+.logo img {
+  height: 72px;          /* desktop */
+  width: auto;
+  display: block;
+  filter: drop-shadow(0 0 6px rgba(255,255,255,0.15));
 }
 
 .logo-mark {
@@ -519,6 +527,10 @@ body {
 
   .logo-text {
     font-size: 1rem;
+  }
+
+    .logo img {
+    height: 34px;        /* mobile */
   }
 
   /* La nav NON sta più nella riga dell'header,
