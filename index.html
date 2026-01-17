@@ -113,45 +113,48 @@
     </section>
 
     <!-- GALLERIA -->
-    <section id="gallery" class="section section-alt">
-      <div class="section-inner">
-        <div class="section-header">
-          <h2>Galleria lavori</h2>
-          <p>
-            Una selezione di interventi realizzati in quota: facciate, coperture,
-            strutture industriali e contesti urbani complessi.
-          </p>
-        </div>
+  <section id="gallery" class="gallery-section">
+  <div class="section-header">
+    <h2>Galleria</h2>
+    <p>Una selezione dei nostri interventi e delle nostre lavorazioni</p>
+  </div>
 
-        <div class="gallery-grid">
-          <!-- Usa immagini tue, qui metto dei placeholder -->
-          <div class="gallery-item">
-            <img src="Immagini/Tecnico su fune che lavora in quota.png" alt="Tecnico su fune su facciata" />
-          </div>
-          <div class="gallery-item">
-            <img src="Immagini/Manutenzione facciate in quota.png" alt="Operatore che lavora in quota" />
-          </div>
-          <div class="gallery-item">
-            <img src="Immagini/Pulizia vetri.png" alt="Pulizia vetrate in altezza" />
-          </div>
-          <div class="gallery-item">
-            <img src="Immagini/Ispezioni e verifiche di sicurezza.png" alt="Lavoro sospeso su corda" />
-          </div>
-          <div class="gallery-item">
-            <img src="Immagini/DPI.png" alt="Dettaglio imbracature e corde" />
-          </div>
-          <div class="gallery-item">
-            <img src="Immagini/Due tecnici su facciata vetrata.png" alt="Team di lavori su fune" />
-          </div>
-          <div class="gallery-item">
-            <img src="Immagini/Operatività in contesti urbani complessi.png" alt="Operatività in contesti urbani" />
-          </div>
-          <div class="gallery-item">
-            <img src="Immagini/Installazioni e ancoraggi.png" alt="Sicurezza" />
-          </div>
-        </div>
+  <div class="album-grid">
+
+    <div class="album-card fade-in" data-album="lavori">
+      <img src="Immagini/gallery/lavori/55901638-698d-463d-b644-d589ad7e2219.png" alt="Lavori">
+      <div class="album-overlay"><h3>Lavori</h3></div>
+    </div>
+
+    <div class="album-card fade-in" data-album="video">
+      <img src="Immagini/gallery/video/Video.png" alt="Video in opera">
+      <div class="album-overlay"><h3>Video in opera</h3></div>
+    </div>
+
+    <div class="album-card fade-in" data-album="adrenalina">
+      <img src="Immagini/gallery/adrenalina/Adrenalina.png" alt="Adrenalina">
+      <div class="album-overlay"><h3>Adrenalina</h3></div>
+    </div>
+
+    <div class="album-card fade-in" data-album="finiture">
+      <img src="Immagini/gallery/interni/08b7fb8c-f5da-4949-8cf1-95a69b8876e4.png" alt="Completamento e finiture d'interni">
+      <div class="album-overlay">
+        <h3>Completamento e finiture d'interni</h3>
       </div>
-    </section>
+    </div>
+
+  </div>
+</section>
+
+<!-- MODALE -->
+<div id="gallery-modal" class="gallery-modal">
+  <div class="modal-content">
+    <span class="close-modal">&times;</span>
+    <div id="modal-gallery" class="modal-gallery"></div>
+  </div>
+</div>
+
+
 
     <!-- CONSULENZA / FORM -->
     <section id="consulenza" class="section section-dark">
@@ -225,6 +228,19 @@
               ></textarea>
             </div>
 
+<div class="form-consent">
+  <label>
+    <input type="checkbox" required>
+    <span>
+      Acconsento al trattamento dei miei dati personali ai sensi del
+      Regolamento UE 2016/679 (GDPR).
+      <a href="privacy.html" target="_blank">Leggi l’informativa</a>.
+    </span>
+  </label>
+</div>
+
+
+
             <button type="submit" class="btn primary full-width">
               Invia richiesta
             </button>
@@ -244,14 +260,18 @@
         <div class="footer-block">
           <h3>Contatti AXES</h3>
           <p>
+            Ragione Sociale
+            <p>AXES S.s. P.IVA 14485820964</p>
+          </p>
+          <p>
             E-mail:
             <a href="mailto:info@axes-ropeaccess.com">info@axes-ropeaccess.com</a>
           </p>
           <p>
             Telefono:
-            <a href="tel:+39000000000">+39 000 000 0000</a>
+            <a href="tel:+39000000000">+39 3516079795</a>
           </p>
-          <p>Città / Area operativa: da personalizzare</p>
+          <p>20121 Milano</p>
         </div>
 
         <div class="footer-block">
