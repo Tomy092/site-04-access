@@ -53,112 +53,173 @@ const observer = new IntersectionObserver(entries => {
 document.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
 
 /* ======================
-   GALLERY MODAL
+   GALLERIA MODALE
 ====================== */
 const modal = document.getElementById("gallery-modal");
 const modalGallery = document.getElementById("modal-gallery");
 const closeModal = document.querySelector(".close-modal");
 
+let currentImages = [];
+let currentIndex = 0;
+
 const albumImages = {
-  lavori: ["1.jpg", "2.jpg", "3.jpg"],
-  video: ["1.jpg", "2.jpg"],
-  adrenalina: ["1.jpg", "2.jpg", "3.jpg"],
-  finiture: ["1.jpg", "2.jpg"]
+  lavori: [
+    "immagini/gallery/lavori/lavorazioni (1).jpeg",
+    "immagini/gallery/lavori/lavorazioni (2).jpeg",
+    "immagini/gallery/lavori/lavorazioni (3).jpeg",
+    "immagini/gallery/lavori/lavorazioni (4).jpeg",
+    "immagini/gallery/lavori/lavorazioni (5).jpeg",
+    "immagini/gallery/lavori/lavorazioni (6).jpeg",
+    "immagini/gallery/lavori/lavorazioni (7).jpeg",
+    "immagini/gallery/lavori/lavorazioni (8).jpeg",
+    "immagini/gallery/lavori/lavorazioni (9).jpeg",
+    "immagini/gallery/lavori/lavorazioni (10).jpeg",
+    "immagini/gallery/lavori/lavorazioni (11).jpeg",
+    "immagini/gallery/lavori/lavorazioni (12).jpeg",
+    "immagini/gallery/lavori/lavorazioni (13).jpeg",
+    "immagini/gallery/lavori/lavorazioni (14).jpeg",
+    "immagini/gallery/lavori/lavorazioni (15).jpeg",
+    "immagini/gallery/lavori/lavorazioni (16).jpeg",
+    "immagini/gallery/lavori/lavorazioni (17).jpeg",
+    "immagini/gallery/lavori/lavorazioni (18).jpeg",
+    "immagini/gallery/lavori/lavorazioni (19).jpeg",
+    "immagini/gallery/lavori/lavorazioni (20).jpeg",
+    "immagini/gallery/lavori/lavorazioni (21).jpeg",
+    "immagini/gallery/lavori/lavorazioni (22).jpeg",
+    "immagini/gallery/lavori/lavorazioni (23).jpeg",
+    "immagini/gallery/lavori/lavorazioni (24).jpeg",
+    "immagini/gallery/lavori/lavorazioni (25).jpeg",
+    "immagini/gallery/lavori/lavorazioni (26).jpeg",
+    "immagini/gallery/lavori/lavorazioni (27).jpeg",
+    "immagini/gallery/lavori/lavorazioni (28).jpeg",
+    "immagini/gallery/lavori/lavorazioni (29).jpeg",
+    "immagini/gallery/lavori/lavorazioni (30).jpeg",
+    "immagini/gallery/lavori/lavorazioni (31).jpeg",
+    "immagini/gallery/lavori/lavorazioni (32).jpeg",
+    "immagini/gallery/lavori/lavorazioni (33).jpeg",
+    "immagini/gallery/lavori/lavorazioni (34).jpeg",
+    "immagini/gallery/lavori/lavorazioni (35).jpeg",
+    "immagini/gallery/lavori/lavorazioni (36).jpeg",
+    "immagini/gallery/lavori/lavorazioni (37).jpeg",
+    "immagini/gallery/lavori/lavorazioni (38).jpeg",
+    "immagini/gallery/lavori/lavorazioni (39).jpeg",
+    "immagini/gallery/lavori/lavorazioni (40).jpeg",
+    "immagini/gallery/lavori/lavorazioni (41).jpeg",
+    "immagini/gallery/lavori/lavorazioni (42).jpeg",
+    "immagini/gallery/lavori/lavorazioni (43).jpeg",
+    "immagini/gallery/lavori/lavorazioni (44).jpeg",
+    "immagini/gallery/lavori/lavorazioni (45).jpeg",
+    "immagini/gallery/lavori/lavorazioni (46).jpeg",
+    "immagini/gallery/lavori/lavorazioni (47).jpeg",
+    "immagini/gallery/lavori/lavorazioni (48).jpeg",
+    "immagini/gallery/lavori/lavorazioni (49).jpeg",
+    "immagini/gallery/lavori/lavorazioni (50).jpeg",
+    "immagini/gallery/lavori/lavorazioni (51).jpeg",
+    "immagini/gallery/lavori/lavorazioni (52).jpeg",
+    "immagini/gallery/lavori/lavorazioni (53).jpeg",
+    "immagini/gallery/lavori/lavorazioni (54).jpeg",
+    "immagini/gallery/lavori/lavorazioni (55).jpeg"
+  ],
+  video: [
+    "immagini/gallery/video/1.jpg",
+    "immagini/gallery/video/2.jpg"
+  ],
+  adrenalina: [
+    "immagini/gallery/adrenalina/1.jpg",
+    "immagini/gallery/adrenalina/2.jpg"
+  ],
+  finiture: [
+    "immagini/gallery/interni/1.jpg",
+    "immagini/gallery/interni/2.jpg"
+  ]
 };
 
-document.querySelectorAll(".album-card").forEach(card => {
-  card.addEventListener("click", () => {
-    const album = card.dataset.album;
-    modalGallery.innerHTML = "";
+/* ======================
+   MOSTRA IMMAGINE
+====================== */
+/* Unified showImage: accepts optional index, uses encodeURI and handles nav visibility */
+function showImage(index = currentIndex) {
+  if (!modalGallery || !Array.isArray(currentImages) || currentImages.length === 0) return;
 
-    albumImages[album].forEach(img => {
-      const image = document.createElement("img");
-image.dataset.src = `images/gallery/${album}/${img}`;
-image.loading = "lazy";
-image.classList.add("lazy-img");
-modalGallery.appendChild(image);
-
-    });
-
-    modal.classList.add("open");
-  });
-});
-
-closeModal.addEventListener("click", () => {
-  modal.classList.remove("open");
-});
-
-/* Lazy load observer */
-const imgObserver = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const img = entry.target;
-      img.src = img.dataset.src;
-      img.onload = () => img.classList.add("loaded");
-      imgObserver.unobserve(img);
-    }
-  });
-});
-
-function observeLazyImages() {
-  document.querySelectorAll(".lazy-img").forEach(img => {
-    imgObserver.observe(img);
-  });
-}
-
-let currentIndex = 0;
-let currentImages = [];
-
-function showImage(index) {
+  currentIndex = typeof index === "number" ? index : currentIndex;
   modalGallery.innerHTML = "";
+
   const img = document.createElement("img");
-  img.src = currentImages[index];
+  img.src = encodeURI(currentImages[currentIndex]);
+  img.classList.add("zoomable");
+  img.loading = "lazy";
+
   modalGallery.appendChild(img);
-enableZoom(img);
+  enableZoom(img);
+
+  // Nascondi/mostra frecce
+  if (prevBtn && nextBtn) {
+    if (currentImages.length <= 1) {
+      prevBtn.classList.add("hidden");
+      nextBtn.classList.add("hidden");
+    } else {
+      prevBtn.classList.remove("hidden");
+      nextBtn.classList.remove("hidden");
+    }
+  }
 }
 
+/* ======================
+   APERTURA ALBUM
+====================== */
 document.querySelectorAll(".album-card").forEach(card => {
   card.addEventListener("click", () => {
     const album = card.dataset.album;
-    currentImages = albumImages[album].map(
-      img => `images/gallery/${album}/${img}`
-    );
+    const imgs = albumImages[album];
+    if (!imgs || !Array.isArray(imgs) || imgs.length === 0) return;
+    currentImages = imgs.slice();
     currentIndex = 0;
-    showImage(currentIndex);
+    showImage();
     modal.classList.add("open");
   });
 });
 
-/* Swipe detection */
+/* ======================
+   CHIUSURA
+====================== */
+if (closeModal) {
+  closeModal.addEventListener("click", () => {
+    if (modal) modal.classList.remove("open");
+    document.body.classList.remove("modal-open");
+  });
+}
+
+/* ======================
+   SWIPE ORIZZONTALE
+====================== */
 let startX = 0;
 
-modalGallery.addEventListener("touchstart", e => {
-  startX = e.touches[0].clientX;
-});
-
-modalGallery.addEventListener("touchend", e => {
-  const endX = e.changedTouches[0].clientX;
-  const diff = startX - endX;
-
-  if (Math.abs(diff) > 50) {
-    if (diff > 0 && currentIndex < currentImages.length - 1) {
-      currentIndex++;
-    } else if (diff < 0 && currentIndex > 0) {
-      currentIndex--;
+if (modal) {
+  modal.addEventListener("touchstart", e => {
+    if (e.touches.length === 1) {
+      startX = e.touches[0].clientX;
     }
-    showImage(currentIndex);
-  }
-});
+  });
+
+  modal.addEventListener("touchend", e => {
+    if (!e.changedTouches || e.changedTouches.length === 0) return;
+    const endX = e.changedTouches[0].clientX;
+    const diff = startX - endX;
+
+    if (Math.abs(diff) > 50) {
+      if (diff > 0 && currentIndex < currentImages.length - 1) {
+        currentIndex++;
+      } else if (diff < 0 && currentIndex > 0) {
+        currentIndex--;
+      }
+      showImage();
+    }
+  });
+}
 
 let scale = 1;
-let lastScale = 1;
 let startDist = 0;
-let posX = 0, posY = 0;
-let lastX = 0, lastY = 0;
-let isDragging = false;
-let imgEl = null;
 
-/* distanza tra due dita */
 function getDistance(touches) {
   const dx = touches[0].clientX - touches[1].clientX;
   const dy = touches[0].clientY - touches[1].clientY;
@@ -166,51 +227,48 @@ function getDistance(touches) {
 }
 
 function enableZoom(img) {
-  imgEl = img;
-  img.classList.add("zoomable");
+  scale = 1;
 
   img.addEventListener("touchstart", e => {
     if (e.touches.length === 2) {
       startDist = getDistance(e.touches);
-      lastScale = scale;
-    }
-    if (e.touches.length === 1) {
-      isDragging = true;
-      lastX = e.touches[0].clientX - posX;
-      lastY = e.touches[0].clientY - posY;
     }
   });
 
   img.addEventListener("touchmove", e => {
-    e.preventDefault();
-
     if (e.touches.length === 2) {
       const dist = getDistance(e.touches);
-      scale = Math.min(Math.max(1, lastScale * (dist / startDist)), 3);
+      scale = Math.min(Math.max(dist / startDist, 1), 3);
+      img.style.transform = `scale(${scale})`;
     }
-
-    if (e.touches.length === 1 && isDragging && scale > 1) {
-      posX = e.touches[0].clientX - lastX;
-      posY = e.touches[0].clientY - lastY;
-    }
-
-    img.style.transform = `translate(${posX}px, ${posY}px) scale(${scale})`;
   });
 
   img.addEventListener("touchend", () => {
-    isDragging = false;
-  });
-
-  /* double tap → reset */
-  let lastTap = 0;
-  img.addEventListener("touchend", e => {
-    const now = Date.now();
-    if (now - lastTap < 300) {
-      scale = 1;
-      posX = posY = 0;
-      img.style.transform = "scale(1)";
-    }
-    lastTap = now;
+    if (scale <= 1) img.style.transform = "scale(1)";
   });
 }
 
+const prevBtn = document.querySelector(".gallery-nav.prev");
+const nextBtn = document.querySelector(".gallery-nav.next");
+
+if (prevBtn) {
+  prevBtn.addEventListener("click", () => {
+    if (currentIndex > 0) {
+      currentIndex--;
+    } else {
+      currentIndex = currentImages.length - 1; // loop
+    }
+    showImage(currentIndex);
+  });
+}
+
+if (nextBtn) {
+  nextBtn.addEventListener("click", () => {
+    if (currentIndex < currentImages.length - 1) {
+      currentIndex++;
+    } else {
+      currentIndex = 0; // loop
+    }
+    showImage(currentIndex);
+  });
+}

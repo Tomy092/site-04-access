@@ -34,7 +34,7 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  height: 72px;
+  height: 75px;
   padding: 0 5vw;
   display: flex;
   align-items: center;
@@ -145,7 +145,7 @@ body {
   position: relative;
   min-height: 100vh;
   padding-top: 72px; /* spazio per l'header */
-  background-image: url("Immagini/HeroCC.png");
+  background-image: url("immagini/background/herocc.png");
   background-size: cover;
   background-position: center;
   color: var(--text-main);
@@ -636,11 +636,12 @@ body {
 .gallery-modal {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.85);
+  background: rgba(0, 0, 0, 0.88);
   display: none;
   align-items: center;
   justify-content: center;
   z-index: 2000;
+  overflow: hidden; 
 }
 
 .gallery-modal.open {
@@ -648,13 +649,13 @@ body {
 }
 
 .modal-content {
-  position: relative;
-  max-width: 90%;
-  max-height: 85%;
+ position: relative;
+  max-width: 92vw;
+  max-height: 90vh;
   background: #050711;
   border-radius: 14px;
-  padding: 2rem;
-  overflow-y: auto;
+  padding: 1.5rem;
+  overflow: hidden; 
 }
 
 .close-modal {
@@ -691,7 +692,10 @@ body {
 
 /* Pinch-to-zoom image */
 .zoomable {
-  touch-action: none;
+  touch-action: pan-y;
+  max-width: 100%;
+  max-height: 75vh;
+  user-select: none;
   cursor: grab;
   transition: transform 0.15s ease;
 }
@@ -765,3 +769,56 @@ body {
   text-decoration: underline;
 }
 
+body.modal-open {
+  overflow: hidden;
+  height: 100vh;
+}
+/* ======================
+   GALLERY NAV BUTTONS
+====================== */
+.gallery-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 201, 255, 0.15);
+  border: 1px solid rgba(0, 201, 255, 0.4);
+  color: #fff;
+  font-size: 2rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  cursor: pointer;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(6px);
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.gallery-nav:hover {
+  background: rgba(0, 201, 255, 0.35);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.gallery-nav.prev {
+  left: 12px;
+}
+
+.gallery-nav.next {
+  right: 12px;
+}
+
+/* Nascondi bottoni se una sola immagine */
+.gallery-nav.hidden {
+  display: none;
+}
+
+/* Mobile: pulsanti leggermente più piccoli */
+@media (max-width: 768px) {
+  .gallery-nav {
+    width: 38px;
+    height: 38px;
+    font-size: 1.6rem;
+  }
+}
