@@ -183,6 +183,13 @@ const albumImages = {
   ]
 };
 
+// Normalizza e codifica correttamente un percorso immagine/video
+function normalizePath(p) {
+  if (typeof p !== 'string') return p;
+  // rimuove eventuali spazi iniziali/finali e sostituisce spazi interni con %20
+  return encodeURI(p.trim().replace(/\\s+/g, '%20'));
+}
+
 function showVideo(index) {
   if (!modalGallery || !Array.isArray(currentVideos) || currentVideos.length === 0) return;
 
@@ -195,7 +202,7 @@ function showVideo(index) {
   video.poster = ""; // opzionale: miniatura
 
   const source = document.createElement("source");
-  source.src = encodeURI(currentVideos[currentIndex]);
+  source.src = normalizePath(currentVideos[currentIndex]);
   source.type = "video/mp4";
 
   video.appendChild(source);
@@ -312,7 +319,7 @@ function showImage(index = currentIndex) {
   modalGallery.innerHTML = "";
 
   const img = document.createElement("img");
-  img.src = encodeURI(currentImages[currentIndex]);
+  img.src = normalizePath(currentImages[currentIndex]);
   img.classList.add("zoomable");
   img.loading = "lazy";
 
