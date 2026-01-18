@@ -692,15 +692,24 @@ body {
 }
 
 .close-modal {
-  position: fixed;
-  top: 12px;
-  right: 12px;
-  font-size: 1.8rem;
+  position: fixed; /* sempre visibile rispetto al viewport */
+  top: 18px;
+  right: 18px;
+  font-size: 1.6rem;
+  line-height: 1;
   cursor: pointer;
-  z-index: 9999; /* sempre sopra tutto */
-  background: rgba(5, 7, 17, 0.6);
-  padding: 6px 8px;
-  border-radius: 8px;
+  z-index: 11000; /* sopra tutti gli elementi della pagina e della modale */
+  background: rgba(0, 0, 0, 0.6);
+  color: var(--text-main);
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6);
 }
 
 .modal-gallery {
