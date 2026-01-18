@@ -10,17 +10,44 @@ document.addEventListener("DOMContentLoaded", () => {
   const nav = document.querySelector(".nav");
 
   if (navToggle && nav) {
+    // Assicura che l'attributo aria-expanded sia sincronizzato collo stato della nav
+    // Imposta stato iniziale
+    navToggle.setAttribute('aria-expanded', nav.classList.contains('open') ? 'true' : 'false');
+
     navToggle.addEventListener("click", () => {
-      nav.classList.toggle("open");
+      const isOpen = nav.classList.toggle("open");
+      navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     });
 
     // Chiudi il menu quando si clicca su un link
     nav.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", () => {
         nav.classList.remove("open");
+        navToggle.setAttribute('aria-expanded', 'false');
       });
     });
   }
+
+  // Chiudi la nav se si clicca fuori quando è aperta
+  document.addEventListener('click', (e) => {
+    if (!nav || !navToggle) return;
+    if (!nav.classList.contains('open')) return;
+    const target = e.target;
+    if (target === navToggle || nav.contains(target)) return; // clic dentro nav o sul toggle
+    nav.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  });
+
+  // Chiudi nav con ESC
+  document.addEventListener('keydown', (e) => {
+    if (!nav) return;
+    if (e.key === 'Escape') {
+      if (nav.classList.contains('open')) {
+        nav.classList.remove('open');
+        if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
+      }
+    }
+  });
 
   // Gestione submit form (solo messaggio lato client)
   const consultForm = document.getElementById("consult-form");
@@ -61,6 +88,8 @@ const closeModal = document.querySelector(".close-modal");
 
 let currentImages = [];
 let currentIndex = 0;
+let currentVideos = [];
+let isVideoModal = false;
 
 const albumImages = {
   lavori: [
@@ -120,10 +149,7 @@ const albumImages = {
     "immagini/gallery/lavori/lavorazioni (54).jpeg",
     "immagini/gallery/lavori/lavorazioni (55).jpeg"
   ],
-  video: [
-    "immagini/gallery/video/1.jpg",
-    "immagini/gallery/video/2.jpg"
-  ],
+
   adrenalina: [
     "immagini/gallery/adrenalina/1.jpg",
     "immagini/gallery/adrenalina/2.jpg"
@@ -133,6 +159,147 @@ const albumImages = {
     "immagini/gallery/interni/2.jpg"
   ]
 };
+ const albumVideos = {
+  video: [
+    "immagini/gallery/video/video (1).mp4",
+    "immagini/gallery/video/video (2).mp4",
+    "immagini/gallery/video/video (3).mp4",
+    "immagini/gallery/video/video (4).mp4",
+    "immagini/gallery/video/video (5).mp4",
+    "immagini/gallery/video/video (6).mp4",
+    "immagini/gallery/video/video (7).mp4",
+    "immagini/gallery/video/video (8).mp4",
+    "immagini/gallery/video/video (9).mp4",
+    "immagini/gallery/video/video (10).mp4",
+    "immagini/gallery/video/video (11).mp4",
+    "immagini/gallery/video/video (12).mp4",
+    "immagini/gallery/video/video (13).mp4",
+    "immagini/gallery/video/video (14).mp4",
+    "immagini/gallery/video/video (15).mp4",
+    "immagini/gallery/video/video (16).mp4",
+    "immagini/gallery/video/video (17).mp4",
+    "immagini/gallery/video/video (18).mp4",
+    "immagini/gallery/video/video (19).mp4"
+  ]
+};
+
+function showVideo(index) {
+  if (!modalGallery || !Array.isArray(currentVideos) || currentVideos.length === 0) return;
+
+  currentIndex = typeof index === "number" ? index : currentIndex;
+  modalGallery.innerHTML = "";
+
+  const video = document.createElement("video");
+  video.controls = true;
+  video.autoplay = false;
+  video.poster = ""; // opzionale: miniatura
+
+  const source = document.createElement("source");
+  source.src = encodeURI(currentVideos[currentIndex]);
+  source.type = "video/mp4";
+
+  video.appendChild(source);
+  modalGallery.appendChild(video);
+
+  // overlay play: mostra un grande pulsante al centro che avvia il video
+  const overlay = document.createElement("div");
+  overlay.className = "video-play-overlay";
+  overlay.innerHTML = `
+    <div class="play-btn" aria-hidden="true">
+      <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>
+    </div>
+  `;
+  modalGallery.appendChild(overlay);
+
+  const playBtn = overlay.querySelector('.play-btn');
+
+  // Gestione input: distinguiamo tap (play) da swipe (no play)
+  let touchStartX = 0, touchStartY = 0, touchMoved = false;
+  overlay._suppressClick = false;
+
+  overlay.addEventListener('touchstart', (e) => {
+    if (e.touches && e.touches.length === 1) {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      touchMoved = false;
+    }
+  }, { passive: true });
+
+  overlay.addEventListener('touchmove', (e) => {
+    if (e.touches && e.touches.length === 1) {
+      const dx = Math.abs(e.touches[0].clientX - touchStartX);
+      const dy = Math.abs(e.touches[0].clientY - touchStartY);
+      if (dx > 10 || dy > 10) touchMoved = true;
+    }
+  }, { passive: true });
+
+  overlay.addEventListener('touchend', (e) => {
+    e.stopPropagation();
+    if (!touchMoved) {
+      try { video.play(); } catch (err) {}
+      // Previeni il click sintetico che alcuni browser generano dopo touch
+      overlay._suppressClick = true;
+      setTimeout(() => { overlay._suppressClick = false; }, 400);
+    }
+  });
+
+  // Click mouse/pen: normale play. Se è stato appena eseguito un touch, sopprimiamo il click sintetico.
+  overlay.addEventListener('click', (e) => {
+    if (overlay._suppressClick) {
+      e.stopPropagation();
+      e.preventDefault();
+      return;
+    }
+    e.stopPropagation();
+    try { video.play(); } catch (err) {}
+  });
+
+  // Nascondi overlay quando parte la riproduzione; mostralo su pausa/ended
+  video.addEventListener('play', () => { overlay.classList.add('hidden'); });
+  video.addEventListener('playing', () => { overlay.classList.add('hidden'); });
+  video.addEventListener('pause', () => { overlay.classList.remove('hidden'); });
+  video.addEventListener('ended', () => { overlay.classList.remove('hidden'); });
+
+  // Se il video è già in stato 'playing' (edge cases), nascondi overlay
+  if (!video.paused && !video.ended) {
+    overlay.classList.add('hidden');
+  }
+
+  // Nascondi/mostra frecce per video
+  if (prevBtn && nextBtn) {
+    if (currentVideos.length <= 1) {
+      prevBtn.classList.add("hidden");
+      nextBtn.classList.add("hidden");
+    } else {
+      prevBtn.classList.remove("hidden");
+      nextBtn.classList.remove("hidden");
+    }
+  }
+}
+
+document.querySelectorAll(".album-card").forEach(card => {
+  card.addEventListener("click", () => {
+    const album = card.dataset.album;
+
+    if (album === "video") {
+      currentVideos = albumVideos[album];
+      currentIndex = 0;
+      isVideoModal = true;
+      showVideo(currentIndex);
+      if (modal) modal.classList.add("open");
+      document.body.classList.add("modal-open");
+    } else {
+      // mostra immagini
+      currentImages = albumImages[album];
+      currentIndex = 0;
+      isVideoModal = false;
+      showImage(currentIndex);
+      if (modal) modal.classList.add("open");
+      document.body.classList.add("modal-open");
+    }
+  });
+});
+
 
 /* ======================
    MOSTRA IMMAGINE
@@ -167,17 +334,7 @@ function showImage(index = currentIndex) {
 /* ======================
    APERTURA ALBUM
 ====================== */
-document.querySelectorAll(".album-card").forEach(card => {
-  card.addEventListener("click", () => {
-    const album = card.dataset.album;
-    const imgs = albumImages[album];
-    if (!imgs || !Array.isArray(imgs) || imgs.length === 0) return;
-    currentImages = imgs.slice();
-    currentIndex = 0;
-    showImage();
-    modal.classList.add("open");
-  });
-});
+// NOTE: l'apertura degli album è gestita sopra (una singola gestione che copre immagini e video)
 
 /* ======================
    CHIUSURA
@@ -186,6 +343,12 @@ if (closeModal) {
   closeModal.addEventListener("click", () => {
     if (modal) modal.classList.remove("open");
     document.body.classList.remove("modal-open");
+    // Se era un video, interrompi la riproduzione
+    const v = modalGallery ? modalGallery.querySelector("video") : null;
+    if (v) {
+      try { v.pause(); v.currentTime = 0; } catch (e) {}
+    }
+    isVideoModal = false;
   });
 }
 
@@ -207,12 +370,21 @@ if (modal) {
     const diff = startX - endX;
 
     if (Math.abs(diff) > 50) {
-      if (diff > 0 && currentIndex < currentImages.length - 1) {
-        currentIndex++;
-      } else if (diff < 0 && currentIndex > 0) {
-        currentIndex--;
+      if (isVideoModal) {
+        if (diff > 0 && currentIndex < currentVideos.length - 1) {
+          currentIndex++;
+        } else if (diff < 0 && currentIndex > 0) {
+          currentIndex--;
+        }
+        showVideo(currentIndex);
+      } else {
+        if (diff > 0 && currentIndex < currentImages.length - 1) {
+          currentIndex++;
+        } else if (diff < 0 && currentIndex > 0) {
+          currentIndex--;
+        }
+        showImage(currentIndex);
       }
-      showImage();
     }
   });
 }
@@ -253,22 +425,72 @@ const nextBtn = document.querySelector(".gallery-nav.next");
 
 if (prevBtn) {
   prevBtn.addEventListener("click", () => {
-    if (currentIndex > 0) {
-      currentIndex--;
+    if (isVideoModal) {
+      if (currentIndex > 0) {
+        currentIndex--;
+      } else {
+        currentIndex = currentVideos.length - 1; // loop
+      }
+      showVideo(currentIndex);
     } else {
-      currentIndex = currentImages.length - 1; // loop
+      if (currentIndex > 0) {
+        currentIndex--;
+      } else {
+        currentIndex = currentImages.length - 1; // loop
+      }
+      showImage(currentIndex);
     }
-    showImage(currentIndex);
   });
 }
 
 if (nextBtn) {
   nextBtn.addEventListener("click", () => {
-    if (currentIndex < currentImages.length - 1) {
-      currentIndex++;
+    if (isVideoModal) {
+      if (currentIndex < currentVideos.length - 1) {
+        currentIndex++;
+      } else {
+        currentIndex = 0; // loop
+      }
+      showVideo(currentIndex);
     } else {
-      currentIndex = 0; // loop
+      if (currentIndex < currentImages.length - 1) {
+        currentIndex++;
+      } else {
+        currentIndex = 0; // loop
+      }
+      showImage(currentIndex);
     }
-    showImage(currentIndex);
   });
 }
+
+// NAVIGAZIONE DA TASTIERA: frecce sinistra/destra per scorrere, Esc per chiudere
+document.addEventListener('keydown', (e) => {
+  if (!modal || !modal.classList.contains('open')) return;
+
+  if (e.key === 'ArrowLeft') {
+    e.preventDefault();
+    if (isVideoModal) {
+      if (currentIndex > 0) currentIndex--; else currentIndex = currentVideos.length - 1;
+      showVideo(currentIndex);
+    } else {
+      if (currentIndex > 0) currentIndex--; else currentIndex = currentImages.length - 1;
+      showImage(currentIndex);
+    }
+  } else if (e.key === 'ArrowRight') {
+    e.preventDefault();
+    if (isVideoModal) {
+      if (currentIndex < currentVideos.length - 1) currentIndex++; else currentIndex = 0;
+      showVideo(currentIndex);
+    } else {
+      if (currentIndex < currentImages.length - 1) currentIndex++; else currentIndex = 0;
+      showImage(currentIndex);
+    }
+  } else if (e.key === 'Escape') {
+    // chiudi modal
+    if (modal) modal.classList.remove('open');
+    document.body.classList.remove('modal-open');
+    const v = modalGallery ? modalGallery.querySelector('video') : null;
+    if (v) { try { v.pause(); v.currentTime = 0; } catch (err) {} }
+    isVideoModal = false;
+  }
+});

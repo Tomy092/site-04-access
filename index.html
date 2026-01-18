@@ -10,11 +10,27 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
       rel="stylesheet"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <!-- Foglio di stile -->
     <link rel="stylesheet" href="styles.css" />
+    <meta name="description" content="AXES - Lavori su fune professionali: manutenzioni, ispezioni, pulizie e installazioni in quota. Contattaci per consulenze e preventivi.">
+    <meta name="theme-color" content="#050711">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="/">
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="AXES – Lavori in quota e su fune">
+    <meta property="og:description" content="AXES - Lavori su fune professionali: manutenzioni, ispezioni, pulizie e installazioni in quota.">
+    <meta property="og:image" content="immagini/loghi/buoni/logo da usare per sito.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AXES – Lavori in quota e su fune">
+    <meta name="twitter:description" content="AXES - Lavori su fune professionali: manutenzioni, ispezioni, pulizie e installazioni in quota.">
+    <link rel="icon" href="immagini/favicon.ico">
   </head>
   <body>
+    <a class="skip-link" href="#home">Salta al contenuto principale</a>
     <!-- HEADER / NAVBAR -->
     <header class="header">
       <div class="logo">
@@ -22,14 +38,14 @@
 </div>
 
 
-      <nav class="nav">
+      <nav id="main-nav" class="nav" aria-label="Navigazione principale">
         <a href="#home" class="nav-link">Home</a>
         <a href="#gallery" class="nav-link">Galleria</a>
         <a href="#consulenza" class="nav-link">Consulenze</a>
         <a href="#contatti" class="nav-link nav-cta">Contatti</a>
       </nav>
 
-      <button class="nav-toggle" id="nav-toggle" aria-label="Apri menu">
+      <button class="nav-toggle" id="nav-toggle" aria-label="Apri menu" aria-controls="main-nav" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </header>
@@ -122,22 +138,22 @@
   <div class="album-grid">
 
     <div class="album-card fade-in" data-album="lavori">
-      <img src="immagini/gallery/lavori/copertina-album/immagine copertina album.jpg" alt="Lavori">
+      <img src="immagini/gallery/lavori/copertina-album/immagine copertina album.jpg" alt="Lavori" loading="lazy" decoding="async">
       <div class="album-overlay"><h3>Lavori</h3></div>
     </div>
 
     <div class="album-card fade-in" data-album="video">
-      <img src="immagini/gallery/video/Video.png" alt="Video in opera">
+      <img src="immagini/gallery/video/copertina-album/video.png" alt="Video in opera" loading="lazy" decoding="async">
       <div class="album-overlay"><h3>Video in opera</h3></div>
     </div>
 
     <div class="album-card fade-in" data-album="adrenalina">
-      <img src="immagini/gallery/adrenalina/Adrenalina.png" alt="Adrenalina">
+      <img src="immagini/gallery/adrenalina/Adrenalina.png" alt="Adrenalina" loading="lazy" decoding="async">
       <div class="album-overlay"><h3>Adrenalina</h3></div>
     </div>
 
     <div class="album-card fade-in" data-album="finiture">
-      <img src="immagini/gallery/interni/08b7fb8c-f5da-4949-8cf1-95a69b8876e4.png" alt="Completamento e finiture d'interni">
+      <img src="immagini/gallery/interni/08b7fb8c-f5da-4949-8cf1-95a69b8876e4.png" alt="Completamento e finiture d'interni" loading="lazy" decoding="async">
       <div class="album-overlay">
         <h3>Completamento e finiture d'interni</h3>
       </div>
@@ -147,13 +163,13 @@
 </section>
 
 <!-- MODALE -->
-<div id="gallery-modal" class="gallery-modal">
+<div id="gallery-modal" class="gallery-modal" role="dialog" aria-modal="true" aria-label="Galleria immagini">
   <div class="modal-content">
-    <span class="close-modal">&times;</span>
+    <button type="button" class="close-modal" aria-label="Chiudi galleria" title="Chiudi galleria">&times;</button>
 
     <!-- Bottoni navigazione -->
-    <button class="gallery-nav prev" aria-label="Immagine precedente">❮</button>
-    <button class="gallery-nav next" aria-label="Immagine successiva">❯</button>
+    <button type="button" class="gallery-nav prev" aria-label="Immagine precedente">❮</button>
+    <button type="button" class="gallery-nav next" aria-label="Immagine successiva">❯</button>
 
     <div id="modal-gallery" class="modal-gallery"></div>
   </div>
@@ -161,101 +177,146 @@
 
     <!-- CONSULENZA / FORM -->
     <section id="consulenza" class="section section-dark">
-      <div class="section-inner section-two-cols">
-        <div class="section-text">
-          <h2>Prenota una consulenza telefonica</h2>
-          <p>
-            Raccontaci il tipo di intervento di cui hai bisogno: ti contatteremo
-            per una prima consulenza telefonica gratuita e, se necessario,
-            organizzeremo un sopralluogo in loco.
-          </p>
+  <div class="section-inner section-two-cols">
 
-          <ul class="checklist">
-            <li>Analisi preliminare del problema</li>
-            <li>Valutazione fattibilità e sicurezza</li>
-            <li>Stima tempi e costi dell’intervento</li>
-          </ul>
+    <!-- COLONNA SINISTRA -->
+    <div class="section-text">
+      <h2>Prenota una consulenza telefonica</h2>
+      <p>
+        Raccontaci il tipo di intervento di cui hai bisogno: ti contatteremo
+        per una prima consulenza telefonica gratuita e, se necessario,
+        organizzeremo un sopralluogo in loco.
+      </p>
+
+      <ul class="checklist">
+        <li>Analisi preliminare del problema</li>
+        <li>Valutazione fattibilità e sicurezza</li>
+        <li>Stima tempi e costi dell’intervento</li>
+      </ul>
+
+      <!-- ✅ TRUST PANEL INSERITO QUI -->
+      <div class="trust-panel">
+
+        <!-- Silhouette tecnica in background -->
+        <div class="trust-bg"></div>
+
+        <h3 class="trust-title">Perché scegliere AXES</h3>
+
+        <ul class="trust-list">
+          <li>✔ Tecnici qualificati e assicurati</li>
+          <li>✔ Interventi senza ponteggi</li>
+          <li>✔ Riduzione tempi e costi</li>
+          <li>✔ Massima sicurezza operativa</li>
+          <li>✔ Operativi su Milano e Lombardia</li>
+        </ul>
+
+        <div class="trust-timeline">
+          <div class="step">
+            <span class="step-dot"></span>
+            <p>Richiesta consulenza</p>
+          </div>
+          <div class="step">
+            <span class="step-dot"></span>
+            <p>Chiamata tecnica</p>
+          </div>
+          <div class="step">
+            <span class="step-dot"></span>
+            <p>Sopralluogo</p>
+          </div>
+          <div class="step">
+            <span class="step-dot"></span>
+            <p>Intervento su fune</p>
+          </div>
         </div>
 
-        <div class="form-card">
-          <form class="form" id="consult-form">
-            <div class="form-group">
-              <label for="name">Nome e cognome</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                placeholder="Inserisci il tuo nome"
-                required
-              />
-            </div>
-
-            <div class="form-group">
-              <label for="phone">Telefono</label>
-              <input
-                type="tel"
-                id="phone"
-                name="phone"
-                placeholder="Es. +39 333 123 4567"
-                required
-              />
-            </div>
-
-            <div class="form-group">
-              <label for="email">E-mail</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Es. nome@azienda.it"
-              />
-            </div>
-
-            <div class="form-group">
-              <label for="slot">Preferenza oraria</label>
-              <select id="slot" name="slot">
-                <option value="">Seleziona una fascia oraria</option>
-                <option value="mattina">Mattina (09:00 – 12:00)</option>
-                <option value="pomeriggio">Pomeriggio (14:00 – 17:00)</option>
-                <option value="sera">Sera (17:00 – 19:30)</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="message">Descrivi brevemente l’intervento</label>
-              <textarea
-                id="message"
-                name="message"
-                rows="4"
-                placeholder="Facciata condominio da ripristinare, pulizia vetrate, ispezione copertura..."
-              ></textarea>
-            </div>
-
-<div class="form-consent">
-  <label>
-    <input type="checkbox" id="consent" name="consent" required>
-    <span>
-      Acconsento al trattamento dei miei dati personali ai sensi del
-      Regolamento UE 2016/679 (GDPR).
-      <a href="privacy.html" target="_blank" rel="noopener noreferrer">Leggi l’informativa</a>.
-    </span>
-  </label>
-</div>
-
-
-
-            <button type="submit" class="btn primary full-width">
-              Invia richiesta
-            </button>
-
-            <p class="form-note" id="form-note">
-              Compilando il form autorizzi il trattamento dei dati ai sensi della
-              normativa vigente.
-            </p>
-          </form>
-        </div>
       </div>
-    </section>
+      <!-- / TRUST PANEL -->
+
+    </div>
+
+    <!-- COLONNA DESTRA -->
+    <div class="form-card">
+      <form class="form" id="consult-form">
+
+        <div class="form-group">
+          <label for="name">Nome e cognome</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Inserisci il tuo nome"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Telefono</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            placeholder="Es. +39 333 123 4567"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="email">E-mail</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Es. nome@azienda.it"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="slot">Preferenza oraria</label>
+          <select id="slot" name="slot">
+            <option value="">Seleziona una fascia oraria</option>
+            <option value="mattina">Mattina (09:00 – 12:00)</option>
+            <option value="pomeriggio">Pomeriggio (14:00 – 17:00)</option>
+            <option value="sera">Sera (17:00 – 19:30)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Descrivi brevemente l’intervento</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="4"
+            placeholder="Facciata condominio da ripristinare, pulizia vetrate, ispezione copertura..."
+          ></textarea>
+        </div>
+
+        <div class="form-consent">
+          <label>
+            <input type="checkbox" id="consent" name="consent" required />
+            <span>
+              Acconsento al trattamento dei miei dati personali ai sensi del
+              Regolamento UE 2016/679 (GDPR).
+              <a href="privacy.html" target="_blank" rel="noopener noreferrer">
+                Leggi l’informativa
+              </a>.
+            </span>
+          </label>
+        </div>
+
+        <button type="submit" class="btn primary full-width">
+          Invia richiesta
+        </button>
+
+        <p class="form-note" id="form-note">
+          Compilando il form autorizzi il trattamento dei dati ai sensi della
+          normativa vigente.
+        </p>
+
+      </form>
+    </div>
+
+  </div>
+</section>
 
     <!-- CONTATTI / FOOTER -->
     <footer id="contatti" class="footer">

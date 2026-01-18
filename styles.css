@@ -16,6 +16,34 @@ body {
   line-height: 1.6;
 }
 
+/* Skip link visibility */
+.skip-link {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  padding: 8px 10px;
+  border-radius: 6px;
+  z-index: 10000;
+  transform: translateY(-120%);
+  transition: transform 0.18s ease;
+}
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* Focus-visible for keyboard users */
+:where(a, button, input, select, textarea) :focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Better visible focus for .btn */
+.btn:focus-visible {
+  box-shadow: 0 0 0 4px rgba(0,201,255,0.12);
+}
+
 /* COLORI / VARIABILI */
 :root {
   --bg-main: #050711;
@@ -479,6 +507,11 @@ body {
   color: var(--text-muted);
 }
 
+/* Stacca il pulsante di invio dal blocco del consenso/privacy */
+.form-card form button[type="submit"] {
+  margin-top: 12px;
+}
+
 /* FOOTER */
 .footer {
   background: #040510;
@@ -659,17 +692,22 @@ body {
 }
 
 .close-modal {
-  position: absolute;
-  top: 14px;
-  right: 18px;
-  font-size: 2rem;
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  font-size: 1.8rem;
   cursor: pointer;
+  z-index: 9999; /* sempre sopra tutto */
+  background: rgba(5, 7, 17, 0.6);
+  padding: 6px 8px;
+  border-radius: 8px;
 }
 
 .modal-gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1.5rem;
+  position: relative; /* necessario per overlay play positioned absolute */
 }
 
 .modal-gallery img {
@@ -704,6 +742,47 @@ body {
   cursor: grabbing;
 }
 
+/* Overlay play per video nella modal (centrato) */
+
+.video-play-overlay {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  pointer-events: auto; /* solo il bottone è cliccabile */
+}
+
+.video-play-overlay .play-btn {
+  width: 96px;
+  height: 96px;
+  border-radius: 999px;
+  background: rgba(0, 201, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(6px);
+  transition: transform 0.12s ease, background 0.12s ease;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.video-play-overlay .play-btn:hover {
+  transform: scale(1.05);
+  background: rgba(0, 201, 255, 0.18);
+}
+
+.video-play-overlay svg {
+  width: 40px;
+  height: 40px;
+  fill: var(--accent);
+}
+
+.video-play-overlay.hidden { display: none; }
+
 /* ======================
    FORM CONSENSO GDPR
 ====================== */
@@ -715,14 +794,14 @@ body {
 
 .form-consent label {
   display: flex;
-  align-items: flex-start;
+  align-items: center; /* allinea checkbox e testo alla stessa altezza */
   gap: 0.6rem;
   cursor: pointer;
 }
 
 .form-consent input[type="checkbox"] {
   accent-color: var(--accent); /* colore brand AXES */
-  margin-top: 3px;
+  margin-top: 0px; /* leggero spostamento verso l'alto */
 }
 
 .form-consent span {
@@ -777,18 +856,18 @@ body.modal-open {
    GALLERY NAV BUTTONS
 ====================== */
 .gallery-nav {
-  position: absolute;
+  position: fixed; /* sempre relativo alla pagina */
   top: 50%;
   transform: translateY(-50%);
   background: rgba(0, 201, 255, 0.15);
   border: 1px solid rgba(0, 201, 255, 0.4);
   color: #fff;
   font-size: 2rem;
-  width: 44px;
-  height: 44px;
+  width: 64px; /* più grandi per facilità d'uso */
+  height: 64px;
   border-radius: 999px;
   cursor: pointer;
-  z-index: 5;
+  z-index: 5000; /* sotto la X fissata */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -802,11 +881,14 @@ body.modal-open {
 }
 
 .gallery-nav.prev {
-  left: 12px;
+  /* posiziona a sinistra rispetto al centro della pagina sottraendo metà della max-width della modal (92vw/2 = 46vw)
+     + un offset per staccarlo dal bordo della modale */
+  left: calc(50% - 46vw - 46px);
 }
 
 .gallery-nav.next {
-  right: 12px;
+  /* simmetrico: distanza dal bordo destro della pagina */
+  right: calc(50% - 46vw - 46px);
 }
 
 /* Nascondi bottoni se una sola immagine */
@@ -814,11 +896,88 @@ body.modal-open {
   display: none;
 }
 
-/* Mobile: pulsanti leggermente più piccoli */
+/* Mobile: pulsanti leggermente più piccoli e posizionati vicino ai bordi */
 @media (max-width: 768px) {
   .gallery-nav {
-    width: 38px;
-    height: 38px;
+    width: 48px;
+    height: 48px;
     font-size: 1.6rem;
+    z-index: 5000;
   }
+  .gallery-nav.prev { left: 12px; }
+  .gallery-nav.next { right: 12px; }
 }
+
+/* ======================
+   TRUST PANEL
+====================== */
+.trust-panel {
+  position: relative;
+  background: rgba(10, 14, 35, 0.65);
+  border: 1px solid var(--border-subtle);
+  border-radius: 22px;
+  padding: 2rem 1.8rem;
+  overflow: hidden;
+  box-shadow: 0 20px 45px rgba(0,0,0,0.45);
+}
+
+/* Silhouette tecnica */
+.trust-bg {
+  position: absolute;
+  inset: 0;
+  background: url("immagini/ui/silhouette-rope.png") no-repeat right bottom;
+  background-size: 220px;
+  opacity: 0.50;
+  pointer-events: none;
+}
+
+/* Titolo */
+.trust-title {
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  margin-bottom: 1.2rem;
+}
+
+/* Lista trust */
+.trust-list {
+  list-style: none;
+  margin-bottom: 2rem;
+}
+
+.trust-list li {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 0.4rem;
+}
+
+/* Timeline */
+.trust-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  border-left: 1px solid var(--accent-soft);
+  padding-left: 1.2rem;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.step-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.step p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+
