@@ -430,8 +430,12 @@ function enableZoom(img) {
 const prevBtn = document.querySelector(".gallery-nav.prev");
 const nextBtn = document.querySelector(".gallery-nav.next");
 
+// Ritorna true su Mobile/Tablet (<=1024px)
+const isSmallScreen = () => window.matchMedia("(max-width:1024px)").matches;
+
 if (prevBtn) {
-  prevBtn.addEventListener("click", () => {
+  prevBtn.addEventListener("click", (e) => {
+    if (isSmallScreen()) return; // non rispondere su mobile/tablet
     if (isVideoModal) {
       if (currentIndex > 0) {
         currentIndex--;
@@ -451,7 +455,8 @@ if (prevBtn) {
 }
 
 if (nextBtn) {
-  nextBtn.addEventListener("click", () => {
+  nextBtn.addEventListener("click", (e) => {
+    if (isSmallScreen()) return; // non rispondere su mobile/tablet
     if (isVideoModal) {
       if (currentIndex < currentVideos.length - 1) {
         currentIndex++;

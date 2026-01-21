@@ -905,7 +905,26 @@ body.modal-open {
   display: none;
 }
 
+/* Mobile: pulsanti leggermente più piccoli e posizionati vicino ai bordi */
+@media (max-width: 768px) {
+  .gallery-nav {
+    width: 48px;
+    height: 48px;
+    font-size: 1.6rem;
+    z-index: 5000;
+  }
+  .gallery-nav.prev { left: 12px; }
+  .gallery-nav.next { right: 12px; }
+}
 
+/* Nascondi i bottoni di navigazione della galleria su Mobile + Tablet
+   (mantieni visibili su Desktop) */
+@media (max-width: 1024px) {
+  .gallery-nav {
+    display: none !important;
+    pointer-events: none;
+  }
+}
 
 /* ======================
    TRUST PANEL
