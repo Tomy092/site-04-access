@@ -225,6 +225,7 @@ function showVideo(index) {
   overlay._suppressClick = false;
 
   overlay.addEventListener('touchstart', (e) => {
+    if (isSmallScreen()) return; // non attivare play logic su mobile/tablet
     if (e.touches && e.touches.length === 1) {
       touchStartX = e.touches[0].clientX;
       touchStartY = e.touches[0].clientY;
@@ -233,6 +234,7 @@ function showVideo(index) {
   }, { passive: true });
 
   overlay.addEventListener('touchmove', (e) => {
+    if (isSmallScreen()) return;
     if (e.touches && e.touches.length === 1) {
       const dx = Math.abs(e.touches[0].clientX - touchStartX);
       const dy = Math.abs(e.touches[0].clientY - touchStartY);
@@ -241,6 +243,12 @@ function showVideo(index) {
   }, { passive: true });
 
   overlay.addEventListener('touchend', (e) => {
+    if (isSmallScreen()) {
+      // impediamo il play su mobile/tablet
+      overlay._suppressClick = true;
+      setTimeout(() => { overlay._suppressClick = false; }, 400);
+      return;
+    }
     e.stopPropagation();
     if (!touchMoved) {
       try { video.play(); } catch (err) {}
@@ -252,6 +260,7 @@ function showVideo(index) {
 
   // Click mouse/pen: normale play. Se è stato appena eseguito un touch, sopprimiamo il click sintetico.
   overlay.addEventListener('click', (e) => {
+    if (isSmallScreen()) return; // non permettere click play su mobile/tablet
     if (overlay._suppressClick) {
       e.stopPropagation();
       e.preventDefault();

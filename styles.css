@@ -926,6 +926,15 @@ body.modal-open {
   }
 }
 
+/* Nascondi il tasto play overlay su Mobile/Tablet */
+@media (max-width: 1024px) {
+  .video-play-overlay,
+  .video-play-overlay .play-btn {
+    display: none !important;
+    pointer-events: none !important;
+  }
+}
+
 /* ======================
    TRUST PANEL
 ====================== */
