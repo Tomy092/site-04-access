@@ -989,4 +989,43 @@ body.modal-open {
   color: var(--text-muted);
 }
 
+/* ======================
+   FOOTER SOCIAL ICONS
+====================== */
+.footer-social {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.8rem;
+}
 
+.social-icon {
+  width: 22px;
+  height: 22px;
+  fill: var(--text-muted);
+  transition: fill 0.2s ease, transform 0.2s ease;
+}
+
+.footer-social a:hover .social-icon {
+  fill: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* ======================
+   MOBILE: NASCONDI CONTROLLI GALLERIA / VIDEO
+====================== */
+@media (max-width: 768px) {
+
+  /* Frecce / bottoni scorrimento immagini */
+  .gallery-nav,
+  .gallery-prev,
+  .gallery-next {
+    display: none !important;
+  }
+
+  /* Pulsante play video */
+  .video-play,
+  .play-button {
+    display: none !important;
+  }
+
+}
