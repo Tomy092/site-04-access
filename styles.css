@@ -712,6 +712,25 @@ body {
   box-shadow: none;
 }
 
+/* Icona di chiusura: rendi l'SVG piccolo e incolore (inherita il colore della X)
+   e assicurati che non abbia sfondo */
+.close-modal .close-icon {
+  width: 20px;
+  height: 20px;
+  display: block;
+  object-fit: contain;
+  filter: none;
+}
+
+/* Nascondi il testo visivamente ma mantienilo disponibile per assistive tech */
+.visually-hidden {
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+}
+
 .modal-gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
