@@ -699,7 +699,7 @@ body {
   line-height: 1;
   cursor: pointer;
   z-index: 11000; /* sopra tutti gli elementi della pagina e della modale */
-  background: rgba(0, 0, 0, 0.6);
+  background: transparent; /* rimuove lo sfondo mantenendo solo la X */
   color: var(--text-main);
   padding: 8px 10px;
   border-radius: 10px;
@@ -709,7 +709,7 @@ body {
   justify-content: center;
   width: 48px;
   height: 48px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+  box-shadow: none;
 }
 
 .modal-gallery {
