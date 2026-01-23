@@ -151,6 +151,14 @@ body {
   color: var(--accent);
 }
 
+/* Rimuove la linea decorativa (::after) per il pulsante Contatti */
+.nav-cta::after {
+  display: none;
+}
+.nav-cta:hover::after {
+  width: 0;
+}
+
 /* Burger menu (di default nascosto su desktop) */
 .nav-toggle {
   display: none;
@@ -296,6 +304,12 @@ body {
   padding: 5rem 5vw;
 }
 
+/* Evita che le ancore (#consulenza, ecc.) finiscano sotto l'header fisso */
+/* applichiamo un offset di scroll alle sezioni principali */
+.section, .gallery-section, .privacy-section {
+  scroll-margin-top: 90px; /* spaziatura corrispondente all'header (75px) + margine di sicurezza */
+}
+
 .section-dark {
   background: var(--bg-main);
 }
@@ -328,6 +342,60 @@ body {
 /* Cards servizi */
 .section-text {
   margin-bottom: 2rem;
+}
+
+/* Paragrafo descrittivo sotto le card servizi: card scura, bordo accentato */
+.work-types {
+  max-width: 980px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  padding: 0 1rem;
+}
+
+.work-types p {
+  margin: 0;
+  color: var(--text-main);
+  font-size: 1rem;
+  line-height: 1.7;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  padding: 1rem 1.2rem;
+  border-radius: 12px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.45);
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  border-left: 6px solid var(--accent);
+}
+
+@media (max-width: 600px) {
+  .work-types p {
+    padding: 0.85rem 0.9rem;
+    font-size: 0.96rem;
+    border-left-width: 4px;
+  }
+}
+
+/* Sezione con padding verticale ridotto per avvicinare il paragrafo agli elementi adiacenti */
+.section-tight {
+  padding-top: 1.6rem;
+  padding-bottom: 1.6rem;
+}
+
+/* Ripristino posizionamento normale: nessuna sovrapposizione con la sezione precedente */
+.section + .section-tight {
+  margin-top: 0;
+}
+
+@media (max-width: 480px) {
+  .section + .section-tight {
+    margin-top: 0;
+  }
+  .section-tight {
+    padding-top: 1.6rem;
+    padding-bottom: 1.6rem;
+  }
 }
 
 .section-cards {
@@ -683,6 +751,7 @@ body {
 
 .modal-content {
  position: relative;
+  box-sizing: border-box;
   max-width: 92vw;
   max-height: 90vh;
   background: #050711;
@@ -765,9 +834,6 @@ body {
 }
 
 /* Assicuriamoci che il contenuto video non crei scroll orizzontale */
-.modal-content {
-  box-sizing: border-box;
-}
 
 /* Lazy loading images */
 .lazy-img {
@@ -1118,3 +1184,5 @@ body.modal-open {
     padding: 0.75rem !important;
   }
 }
+
+/* fine file */
