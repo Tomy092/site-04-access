@@ -727,6 +727,29 @@ body {
   user-select: none;
 }
 
+/* Stili specifici per quando la modale contiene un video singolo */
+.modal-gallery.is-video {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: none; /* annulla il comportamento a griglia */
+}
+
+.modal-gallery.is-video video {
+  max-width: 100%;
+  width: 100%;
+  max-height: 78vh; /* lascia spazio per padding e pulsanti */
+  height: auto;
+  object-fit: contain;
+  border-radius: 10px;
+  background: #000; /* evita bande bianche su video con proporzioni diverse */
+}
+
+/* Assicuriamoci che il contenuto video non crei scroll orizzontale */
+.modal-content {
+  box-sizing: border-box;
+}
+
 /* Lazy loading images */
 .lazy-img {
   opacity: 0;

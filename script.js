@@ -195,6 +195,8 @@ function showVideo(index) {
 
   currentIndex = typeof index === "number" ? index : currentIndex;
   modalGallery.innerHTML = "";
+  // Segnala che la modale contiene un video per applicare stili specifici
+  modalGallery.classList.add('is-video');
 
   const video = document.createElement("video");
   video.controls = true;
@@ -327,6 +329,9 @@ function showImage(index = currentIndex) {
   currentIndex = typeof index === "number" ? index : currentIndex;
   modalGallery.innerHTML = "";
 
+  // Rimuovi eventuale flag video quando mostriamo immagini
+  modalGallery.classList.remove('is-video');
+
   const img = document.createElement("img");
   img.src = normalizePath(currentImages[currentIndex]);
   img.classList.add("zoomable");
@@ -365,6 +370,8 @@ if (closeModal) {
       try { v.pause(); v.currentTime = 0; } catch (e) {}
     }
     isVideoModal = false;
+    // Rimuovi anche la classe is-video se presente
+    if (modalGallery) modalGallery.classList.remove('is-video');
   });
 }
 
@@ -513,5 +520,7 @@ document.addEventListener('keydown', (e) => {
     const v = modalGallery ? modalGallery.querySelector('video') : null;
     if (v) { try { v.pause(); v.currentTime = 0; } catch (err) {} }
     isVideoModal = false;
+    // Rimuovi eventuale classe video
+    if (modalGallery) modalGallery.classList.remove('is-video');
   }
 });
