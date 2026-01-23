@@ -33,7 +33,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!nav || !navToggle) return;
     if (!nav.classList.contains('open')) return;
     const target = e.target;
-    if (target === navToggle || nav.contains(target)) return; // clic dentro nav o sul toggle
+    // Se il click è sul toggle o su un suo discendente (es. gli <span> interni),
+    // oppure dentro la nav, non chiudiamo.
+    if (nav.contains(target) || (target.closest && target.closest('#nav-toggle'))) return;
     nav.classList.remove('open');
     navToggle.setAttribute('aria-expanded', 'false');
   });
