@@ -223,11 +223,6 @@ const albumImages = {
     "immagini/gallery/lavori/lavorazioni (48).jpeg",
     "immagini/gallery/lavori/lavorazioni (49).jpeg",
     "immagini/gallery/lavori/lavorazioni (50).jpeg",
-    "immagini/gallery/lavori/lavorazioni (51).jpeg",
-    "immagini/gallery/lavori/lavorazioni (52).jpeg",
-    "immagini/gallery/lavori/lavorazioni (53).jpeg",
-    "immagini/gallery/lavori/lavorazioni (54).jpeg",
-    "immagini/gallery/lavori/lavorazioni (55).jpeg",
   ],
 
   adrenalina: [
