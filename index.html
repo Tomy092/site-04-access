@@ -155,13 +155,10 @@
         <div class="work-types">
           <p id="work-types">
             Eseguiamo interventi completi nel settore edile, occupandoci di
-            demolizioni, messe in sicurezza e opere murarie, oltre a lavori di
-            ripristino da infiltrazioni, applicazione di guaine impermeabilizzanti
-            e resine, rasature, pitture e decorazioni. Ci occupiamo inoltre del
-            completamento e delle finiture d’interni, della manutenzione e
-            riqualificazione delle coperture, della revisione di canali di gronda
-            e tubi di scarico, fino ai servizi di lavaggio vetri, installazione
-            pannelli e molto altro ancora.
+            demolizioni, messe in sicurezza e opere murarie, oltre a lavori di<!-- EmailJS: CDN + init (sostituisci PUBLIC_KEY_QUI con la tua public key EmailJS) -->
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+           <!-- EmailJS: CDN + init (sostituisci PUBLIC_KEY_QUI con la tua public key EmailJS) -->
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
           </p>
         </div>
       </div>
@@ -177,7 +174,7 @@
       <div class="album-grid">
         <div class="album-card fade-in" data-album="lavori">
           <img
-            src="immagini/gallery/lavori/copertina-album/immagine copertina album.jpg"
+            src="immagini/gallery/lavori/copertina-album-lavorazioni/lavorazioni.png"
             alt="Lavori"
             loading="lazy"
             decoding="async"
@@ -187,7 +184,7 @@
 
         <div class="album-card fade-in" data-album="video">
           <img
-            src="immagini/gallery/video/copertina-album/cfc3f4c2-ac9c-4e28-86d3-6f925b00c7cb.png"
+            src="immagini/gallery/video/copertina-album-video/video (1).png"
             alt="Video in opera"
             loading="lazy"
             decoding="async"
@@ -197,7 +194,7 @@
 
         <div class="album-card fade-in" data-album="adrenalina">
           <img
-            src="immagini/gallery/adrenalina/Adrenalina.png"
+            src="immagini/gallery/adrenalina/copertina-album-adrenalina/adrenalina.png"
             alt="Adrenalina"
             loading="lazy"
             decoding="async"
@@ -412,9 +409,9 @@
           <p>AXES Ss P.IVA 14485820964</p>
           <p>
             E-mail:
-              <a href="mailto:amministrazione@axes-ras.it"
-                >amministrazione@axes-ras.it</a
-              >
+            <a href="mailto:amministrazione@axes-ras.it"
+              >amministrazione@axes-ras.it</a
+            >
           </p>
           <p>
             Telefono:
@@ -501,11 +498,37 @@
     </footer>
 
     <!-- Script -->
-    <!-- EmailJS: CDN + init (sostituisci PUBLIC_KEY_QUI con la tua public key EmailJS) -->
+     <!-- EmailJS: CDN + init (sostituisci PUBLIC_KEY_QUI con la tua public key EmailJS) -->
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script>
       (function () {
         emailjs.init("hJ6g5rPSyhBe5fYJh");
+        function loadEmailJS(callback) {
+          if (window.emailjs) {
+            callback();
+            return;
+          }
+
+          const s = document.createElement("script");
+          s.src = "https://cdn.emailjs.com/sdk/3.2.0/email.min.js";
+          s.async = true;
+
+          s.onload = () => {
+            console.log("[INFO] EmailJS SDK caricato");
+            callback();
+          };
+
+          s.onerror = () => {
+            console.error("[ERROR] Impossibile caricare EmailJS SDK");
+          };
+
+          document.head.appendChild(s);
+        }
+
+        loadEmailJS(() => {
+          emailjs.init("hJ6g5rPSyhBe5fYJh");
+          console.log("[INFO] EmailJS inizializzato correttamente");
+        });
       })();
     </script>
     <script src="script.js"></script>

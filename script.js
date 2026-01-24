@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Imposta stato iniziale
     navToggle.setAttribute(
       "aria-expanded",
-      nav.classList.contains("open") ? "true" : "false"
+      nav.classList.contains("open") ? "true" : "false",
     );
 
     navToggle.addEventListener("click", () => {
@@ -58,28 +58,87 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Gestione submit form: usa EmailJS `sendForm` per #consult-form.
+  // Gestione submit form: invio admin + autoreply tramite EmailJS
+  // Nota: la public key viene inizializzata in `index.html`. Non sovrascriverla qui.
   const consultForm = document.getElementById("consult-form");
-  if (consultForm) {
-    consultForm.addEventListener("submit", function (event) {
-      event.preventDefault();
 
-      // Invia usando emailjs.sendForm; sostituisci SERVICE_ID_QUI e TEMPLATE_ID_QUI
-      if (window.emailjs) {
-        emailjs
-          .sendForm("service_f06kseh", "template_6ngdvax", this)
-          .then(
-            function () {
-              alert("Messaggio inviato con successo!");
-              consultForm.reset();
-            },
-            function (error) {
-              alert("Errore nell'invio: " + (error && error.text ? error.text : error));
-            }
-          );
-      } else {
+  // Debug: verifica presenza SDK EmailJS e del tag script in pagina
+  try {
+    console.log("[DEBUG] EmailJS global presente:", !!window.emailjs);
+    console.log("[DEBUG] window.emailjs:", window.emailjs);
+    const scripts = Array.from(document.querySelectorAll("script")).filter(
+      (s) => s.src && s.src.includes("emailjs"),
+    );
+    console.log(
+      "[DEBUG] script tags matching emailjs:",
+      scripts.map((s) => ({
+        src: s.src,
+        readyState: s.readyState || null,
+        async: s.async,
+      })),
+    );
+  } catch (e) {
+    console.warn("[DEBUG] impossibile leggere stato EmailJS:", e);
+  }
+
+  // EmailJS configuration: aggiorna questi valori con quelli reali dal tuo account
+  const EMAILJS_SERVICE_ID = "service_f06kseh";
+  const EMAILJS_TEMPLATE_ADMIN = "template_6ngdvax";
+  const EMAILJS_TEMPLATE_AUTOREPLY = "template_b9vm6nv";
+
+  if (consultForm) {
+    consultForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const form = this;
+      const formData = {
+        name: form.name.value,
+        phone: form.phone.value,
+        email: form.email.value,
+        to_email: form.email.value, // 🔑 chiave
+        slot: form.slot.value,
+        message: form.message.value,
+      };
+
+      /* 1️⃣ EMAIL A TE */
+      console.log("[DEBUG] submit: emailjs present?", !!window.emailjs);
+      if (!window.emailjs) {
+        // ulteriore info: controlla che il tag SDK sia caricato e non bloccato
+        console.error(
+          "[ERROR] EmailJS SDK non trovato su window.emailjs. Verifica che https://cdn.emailjs.com/sdk/3.2.0/email.min.js sia raggiungibile e caricato prima di script.js.",
+        );
         alert("Servizio email non disponibile. Riprova più tardi.");
+        return;
       }
+
+      emailjs
+        .send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ADMIN, formData)
+
+        /* 2️⃣ AUTO-REPLY ALL’UTENTE */
+        .then(() => {
+          return emailjs.send(
+            EMAILJS_SERVICE_ID,
+            EMAILJS_TEMPLATE_AUTOREPLY,
+            formData,
+          );
+        })
+
+        .then(() => {
+          alert("Richiesta inviata correttamente! Ti contatteremo a breve.");
+          form.reset();
+        })
+
+        .catch((error) => {
+          console.error("Errore EmailJS:", error);
+          // Mostra informazioni utili per il debug (status / message / oggetto)
+          const msg =
+            (error && (error.text || error.message || error.status)) ||
+            JSON.stringify(error);
+          alert(
+            "Errore durante l'invio: " +
+              msg +
+              " — Controlla la console per dettagli.",
+          );
+        });
     });
   }
 });
@@ -95,7 +154,7 @@ const observer = new IntersectionObserver(
       }
     });
   },
-  { threshold: 0.2 }
+  { threshold: 0.2 },
 );
 
 document.querySelectorAll(".fade-in").forEach((el) => observer.observe(el));
@@ -172,8 +231,21 @@ const albumImages = {
   ],
 
   adrenalina: [
-    "immagini/gallery/adrenalina/1.jpg",
-    "immagini/gallery/adrenalina/2.jpg",
+    "immagini/gallery/adrenalina/adrenalina (1).jpeg",
+    "immagini/gallery/adrenalina/adrenalina (2).jpeg",
+    "immagini/gallery/adrenalina/adrenalina (3).jpeg",
+    "immagini/gallery/adrenalina/adrenalina (4).jpeg",
+    "immagini/gallery/adrenalina/adrenalina (5).jpeg",
+    "immagini/gallery/adrenalina/adrenalina (6).jpeg",
+    "immagini/gallery/adrenalina/adrenalina (7).jpeg",
+    "immagini/gallery/adrenalina/adrenalina (8).jpeg",
+    "immagini/gallery/adrenalina/adrenalina (9).jpeg",
+    "immagini/gallery/adrenalina/adrenalina (10).jpeg",
+    "immagini/gallery/adrenalina/adrenalina (11).jpeg",
+    "immagini/gallery/adrenalina/adrenalina (12).jpeg",
+    "immagini/gallery/adrenalina/adrenalina (13).jpeg",
+    "immagini/gallery/adrenalina/adrenalina (14).jpeg",
+    "immagini/gallery/adrenalina/adrenalina (15).jpeg",
   ],
   finiture: [
     "immagini/gallery/interni/1.jpg",
@@ -263,7 +335,7 @@ function showVideo(index) {
         touchMoved = false;
       }
     },
-    { passive: true }
+    { passive: true },
   );
 
   overlay.addEventListener(
@@ -276,7 +348,7 @@ function showVideo(index) {
         if (dx > 10 || dy > 10) touchMoved = true;
       }
     },
-    { passive: true }
+    { passive: true },
   );
 
   overlay.addEventListener("touchend", (e) => {
