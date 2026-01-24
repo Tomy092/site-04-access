@@ -501,21 +501,12 @@
     </footer>
 
     <!-- Script -->
-    <!-- EmailJS SDK (client) + configuration: sostituisci i placeholder con i tuoi ID EmailJS
-         (service_id, template_id, user_id). Se vuoi, forniscimi questi
-         valori e li inserisco io. Il template EmailJS deve usare i parametri:
-         nome, telefono, email, fascia_oraria, message, subject
-    -->
-    <script
-      type="text/javascript"
-      src="https://cdn.emailjs.com/sdk/3.2.0/email.min.js"
-    ></script>
+    <!-- EmailJS: CDN + init (sostituisci PUBLIC_KEY_QUI con la tua public key EmailJS) -->
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script>
-      window.EMAILJS_CONFIG = {
-        service_id: "19394562@aruba.it",
-        template_id: "template_g1tiygr",
-        user_id: "hJ6g5rPSyhBe5fYJh",
-      };
+      (function () {
+        emailjs.init("hJ6g5rPSyhBe5fYJh");
+      })();
     </script>
     <script src="script.js"></script>
   </body>

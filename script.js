@@ -58,102 +58,28 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Gestione submit form (solo messaggio lato client)
+  // Gestione submit form: usa EmailJS `sendForm` per #consult-form.
   const consultForm = document.getElementById("consult-form");
-  const formNote = document.getElementById("form-note");
+  if (consultForm) {
+    consultForm.addEventListener("submit", function (event) {
+      event.preventDefault();
 
-  if (consultForm && formNote) {
-    consultForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-
-      const name = (document.getElementById("name") || {}).value || "";
-      const phone = (document.getElementById("phone") || {}).value || "";
-      const email = (document.getElementById("email") || {}).value || "";
-      const slot = (document.getElementById("slot") || {}).value || "";
-      const message = (document.getElementById("message") || {}).value || "";
-
-      const subject = "Richiesta consulenza da sito AXES";
-
-      // Se è presente una configurazione EmailJS (vedi README comment sotto), usala per inviare
-      // altrimenti come fallback proviamo a usare mailto. Per usare EmailJS crea un account
-      // su https://www.emailjs.com/, configura un service e un template che invii a
-      // amministrazione@axes-ras.it e poi imposta una variabile globale `window.EMAILJS_CONFIG` così:
-      // window.EMAILJS_CONFIG = { service_id: 'tuo_service_id', template_id: 'tuo_template_id', user_id: 'tuo_public_key' }
-      async function sendViaEmailJS() {
-        // Preferiamo usare il client SDK (emailjs) perché le chiamate server-side
-        // possono essere bloccate da EmailJS. Verifica che il client sia caricato.
-        if (
-          window.emailjs &&
-          window.EMAILJS_CONFIG &&
-          window.EMAILJS_CONFIG.user_id
-        ) {
-          try {
-            // Inizializza con la public key
-            emailjs.init(window.EMAILJS_CONFIG.user_id);
-            await emailjs.send(
-              window.EMAILJS_CONFIG.service_id,
-              window.EMAILJS_CONFIG.template_id,
-              {
-                nome: name,
-                telefono: phone,
-                email: email,
-                fascia_oraria: slot,
-                message: message,
-                subject: subject,
-              }
-            );
-            return true;
-          } catch (err) {
-            return false;
-          }
-        }
-
-        // Fallback: prova comunque con POST fetch (potrebbe essere bloccato lato server)
-        if (!window.EMAILJS_CONFIG || !window.EMAILJS_CONFIG.service_id)
-          return false;
-
-        const payload = {
-          service_id: window.EMAILJS_CONFIG.service_id,
-          template_id: window.EMAILJS_CONFIG.template_id,
-          user_id: window.EMAILJS_CONFIG.user_id,
-          template_params: {
-            nome: name,
-            telefono: phone,
-            email: email,
-            fascia_oraria: slot,
-            message: message,
-            subject: subject,
-          },
-        };
-
-        try {
-          const resp = await fetch(
-            "https://api.emailjs.com/api/v1.0/email/send",
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(payload)
+      // Invia usando emailjs.sendForm; sostituisci SERVICE_ID_QUI e TEMPLATE_ID_QUI
+      if (window.emailjs) {
+        emailjs
+          .sendForm("service_f06kseh", "template_6ngdvax", this)
+          .then(
+            function () {
+              alert("Messaggio inviato con successo!");
+              consultForm.reset();
+            },
+            function (error) {
+              alert("Errore nell'invio: " + (error && error.text ? error.text : error));
             }
           );
-          return resp.ok;
-        } catch (err) {
-          return false;
-        }
+      } else {
+        alert("Servizio email non disponibile. Riprova più tardi.");
       }
-
-      // Prova a inviare via EmailJS; se fallisce mostriamo un messaggio di errore
-      formNote.style.color = "#00c9ff";
-      formNote.textContent = "Invio in corso...";
-      sendViaEmailJS().then((success) => {
-        if (success) {
-          formNote.textContent = "Richiesta inviata automaticamente. Grazie!";
-          consultForm.reset();
-        } else {
-          formNote.style.color = "#ff6b6b";
-          formNote.textContent =
-            "Invio automatico non riuscito. Riprova più tardi o contatta amministrazione@axes-ras.it";
-        }
-      });
     });
   }
 });
