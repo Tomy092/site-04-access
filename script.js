@@ -223,6 +223,11 @@ const albumImages = {
     "immagini/gallery/lavori/lavorazioni (48).jpeg",
     "immagini/gallery/lavori/lavorazioni (49).jpeg",
     "immagini/gallery/lavori/lavorazioni (50).jpeg",
+    "immagini/gallery/lavori/lavorazioni (51).jpeg",
+    "immagini/gallery/lavori/lavorazioni (52).jpeg",
+    "immagini/gallery/lavori/lavorazioni (53).jpeg",
+    "immagini/gallery/lavori/lavorazioni (54).jpeg",
+    "immagini/gallery/lavori/lavorazioni (55).jpeg",
   ],
 
   adrenalina: [
@@ -235,12 +240,7 @@ const albumImages = {
     "immagini/gallery/adrenalina/adrenalina (7).jpeg",
     "immagini/gallery/adrenalina/adrenalina (8).jpeg",
     "immagini/gallery/adrenalina/adrenalina (9).jpeg",
-    "immagini/gallery/adrenalina/adrenalina (10).jpeg",
-    "immagini/gallery/adrenalina/adrenalina (11).jpeg",
-    "immagini/gallery/adrenalina/adrenalina (12).jpeg",
-    "immagini/gallery/adrenalina/adrenalina (13).jpeg",
-    "immagini/gallery/adrenalina/adrenalina (14).jpeg",
-    "immagini/gallery/adrenalina/adrenalina (15).jpeg",
+
   ],
   finiture: [
     "immagini/gallery/interni/1.jpg",
