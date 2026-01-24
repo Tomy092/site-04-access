@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // EmailJS configuration: aggiorna questi valori con quelli reali dal tuo account
   const EMAILJS_SERVICE_ID = "service_f06kseh";
   const EMAILJS_TEMPLATE_ADMIN = "template_6ngdvax";
-  const EMAILJS_TEMPLATE_AUTOREPLY = "template_b9vm6nv";
+  const EMAILJS_TEMPLATE_AUTOREPLY = "template_kuz4hzp";
 
   if (consultForm) {
     consultForm.addEventListener("submit", function (e) {
