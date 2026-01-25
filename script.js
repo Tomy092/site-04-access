@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Toggle menu mobile
   const navToggle = document.getElementById("nav-toggle");
-  const nav = document.querySelector(".nav");
+  const nav = document.querySelector(".nav");  
 
   if (navToggle && nav) {
     // Assicura che l'attributo aria-expanded sia sincronizzato collo stato della nav
