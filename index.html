@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <!-- Foglio di stile -->
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="prova.css" />
     <link rel="icon" href="immagini/favicon.ico" />
     <meta
       name="description"
@@ -74,8 +74,8 @@
     <main id="home" class="hero">
       <div class="hero-overlay"></div>
 
-       <!-- Silhouette tecnica in background -->
-            <div class="trust-bg1"></div>
+      <!-- Silhouette tecnica in background -->
+      <div class="trust-bg1" aria-hidden="true"></div>
 
       <div class="hero-content">
         <h1>
@@ -298,7 +298,7 @@
           <!-- ✅ TRUST PANEL INSERITO QUI -->
           <div class="trust-panel">
             <!-- Silhouette tecnica in background -->
-            <div class="trust-bg"></div>
+            <div class="trust-bg" aria-hidden="true"></div>
 
             <h3 class="trust-title">Perché scegliere AXES</h3>
 
@@ -494,38 +494,40 @@
           >© <span id="year"></span> AXES – Lavori su fune. Tutti i diritti
           riservati.</span
         >
-        <small
-          style="
-            display: block;
-            margin-top: 6px;
-            color: var(--text-muted);
-            font-size: 0.72rem;
-          "
-          >Icona chiusura:
+        <small class="icon-credit">
+          Icona chiusura:
           <a
             href="https://www.flaticon.com/free-icons/cancellation"
             title="cancellation icons"
             target="_blank"
             rel="noopener noreferrer"
-            style="color: var(--text-muted)"
-            >Cancellation icons created by Saepul Nahwan - Flaticon</a
-          ></small
-        >
+          >
+            Cancellation icons created by Saepul Nahwan - Flaticon
+          </a>
+        </small>
       </div>
     </footer>
 
     <!-- Script -->
-    <!-- EmailJS SDK -->
+    <!-- EmailJS SDK (v3 supportata) -->
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 
-    <!-- Init -->
+    <!-- Init (robusto, evita errori se blocchi CDN o timing) -->
     <script>
       (function () {
-        emailjs.init("hJ6g5rPSyhBe5fYJh");
+        try {
+          if (window.emailjs && typeof window.emailjs.init === "function") {
+            window.emailjs.init("hJ6g5rPSyhBe5fYJh");
+          } else {
+            console.warn("[WARN] EmailJS non disponibile (SDK non caricato).");
+          }
+        } catch (e) {
+          console.warn("[WARN] init EmailJS fallito:", e);
+        }
       })();
     </script>
 
     <!-- Il TUO JS -->
-    <script src="script.js"></script>
+    <script src="prova.js"></script>
   </body>
 </html>
