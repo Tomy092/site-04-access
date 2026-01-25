@@ -283,7 +283,6 @@ const albumImages = {
     "immagini/gallery/adrenalina/adrenalina (7).jpeg",
     "immagini/gallery/adrenalina/adrenalina (8).jpeg",
     "immagini/gallery/adrenalina/adrenalina (9).jpeg",
-
   ],
   finiture: [
     "immagini/gallery/interni/1.jpg",
@@ -701,6 +700,3 @@ document.addEventListener("keydown", (e) => {
     if (modalGallery) modalGallery.classList.remove("is-video");
   }
 });
-
-
-
