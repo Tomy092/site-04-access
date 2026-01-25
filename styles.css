@@ -196,7 +196,7 @@ body {
 
 .hero-content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   max-width: 1200px;
   margin: 0 auto;
   padding: 10vh 5vw 6vh;
@@ -620,6 +620,18 @@ body {
 }
 
 /* RESPONSIVE */
+@media (max-width: 1024px) {
+  .trust-bg1 {
+    background-size: 320px auto;
+    opacity: 0.22;
+  }
+}
+
+@media (max-width: 768px) {
+  .trust-bg1 {
+    display: none;
+  }
+}
 @media (max-width: 900px) {
   .section-inner.section-two-cols {
     grid-template-columns: 1fr;
@@ -1057,14 +1069,37 @@ body.modal-open {
 }
 
 /* Silhouette tecnica */
+.trust-bg1 {
+   position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;          /* copre TUTTA l’altezza */
+  width: 45%;            /* solo una porzione orizzontale */
+
+  background: url("immagini/ui/silhouette-rope.png") no-repeat right bottom;
+  background-size: contain;
+
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 1;
+}
+
+
 .trust-bg {
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  height: 100%;          /* copre TUTTA l’altezza */
+  width: 55%;            /* leggermente più ampia */
+
   background: url("immagini/ui/silhouette-rope.png") no-repeat right bottom;
-  background-size: 220px;
-  opacity: 0.50;
+  background-size: contain;
+
+  opacity: 0.28;
   pointer-events: none;
+  z-index: 0;
 }
+
 
 /* Titolo */
 .trust-title {
@@ -1184,5 +1219,16 @@ body.modal-open {
     padding: 0.75rem !important;
   }
 }
+
+@media (max-width: 1024px) {
+  .trust-bg1,
+  .trust-bg {
+    width: 70%;
+    opacity: 0.2;
+  }
+}
+
+
+
 
 /* fine file */

@@ -701,3 +701,6 @@ document.addEventListener("keydown", (e) => {
     if (modalGallery) modalGallery.classList.remove("is-video");
   }
 });
+
+
+
