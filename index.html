@@ -59,10 +59,9 @@
 
     <!-- FAVICON -->
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  
+
     <!-- CSS -->
     <link rel="stylesheet" href="styles.css" />
-
   </head>
 
   <body>
@@ -378,6 +377,7 @@
                 name="name"
                 placeholder="Inserisci il tuo nome"
                 required
+                autocomplete="name"
               />
             </div>
 
@@ -387,8 +387,9 @@
                 type="tel"
                 id="phone"
                 name="phone"
-                placeholder="Es. +39 333 123 4567"
+                placeholder="+39 333 123 4567"
                 required
+                autocomplete="tel"
               />
             </div>
 
@@ -398,7 +399,8 @@
                 type="email"
                 id="email"
                 name="email"
-                placeholder="Es. nome@azienda.it"
+                placeholder="nome@azienda.it"
+                autocomplete="email"
               />
             </div>
 
