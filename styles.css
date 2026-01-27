@@ -181,7 +181,7 @@ body {
   position: relative;
   min-height: 100vh;
   padding-top: 72px; /* spazio per l'header */
-  background-image: url("immagini/background/herocc.png");
+  background-image: url("immagini/background/herocc.webp");
   background-size: cover;
   background-position: center;
   color: var(--text-main);
@@ -1078,7 +1078,7 @@ body.modal-open {
   height: 100%;          /* copre TUTTA l’altezza */
   width: 45%;            /* solo una porzione orizzontale */
 
-  background: url("immagini/ui/silhouette-rope.png") no-repeat right bottom;
+  background: url("immagini/ui/silhouette-rope.webp") no-repeat right bottom;
   background-size: contain;
 
   opacity: 0.35;
