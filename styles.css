@@ -1094,7 +1094,7 @@ body.modal-open {
   height: 100%;          /* copre TUTTA l’altezza */
   width: 55%;            /* leggermente più ampia */
 
-  background: url("immagini/ui/silhouette-rope.png") no-repeat right bottom;
+  background: url("immagini/ui/silhouette-rope.webp") no-repeat right bottom;
   background-size: contain;
 
   opacity: 0.28;
