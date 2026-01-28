@@ -1270,5 +1270,74 @@ body.modal-open {
   border: 0;
 }
 
+/* ======================
+   TRUST PANEL – ALLINEAMENTO FINE
+   (non influisce sul form)
+====================== */
+
+.trust-panel {
+  --trust-shift: 0px; /* <-- modifica SOLO questo valore */
+}
+
+.trust-panel > *:last-child {
+  margin-bottom: var(--trust-shift);
+}
+
+/* ======================
+   RESPONSIVE FIX MIRATI
+====================== */
+
+@media (max-width: 1024px) {
+  .trust-panel {
+    padding: 1.6rem 1.4rem;
+  }
+
+  .hero-content {
+    padding-top: 14vh;
+  }
+}
+
+@media (max-width: 768px) {
+  .trust-panel {
+    padding: 1.4rem 1.2rem;
+  }
+
+  .modal-gallery.is-video video {
+    max-height: 70vh;
+  }
+}
+
+/* ======================
+   PERFORMANCE – REDUCE MOTION
+====================== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ======================
+   PERFORMANCE – BACKDROP FILTER SAFE
+====================== */
+
+@supports not (backdrop-filter: blur(10px)) {
+  .header,
+  .gallery-nav,
+  .video-play-overlay .play-btn {
+    backdrop-filter: none;
+  }
+}
+
+/* ======================
+   PERFORMANCE – CONTAINMENT
+====================== */
+
+.section,
+.gallery-section,
+.footer {
+  contain: layout paint;
+}
+
 
 /* fine file */
