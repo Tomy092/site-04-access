@@ -1,0 +1,4 @@
+RewriteEngine On
+
+RewriteCond %{THE_REQUEST} /index\.html [NC]
+RewriteRule ^index\.html$ https://www.axes-ras.it/ [R=301,L]
