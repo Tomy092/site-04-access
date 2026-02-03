@@ -803,6 +803,34 @@ body {
   object-fit: contain;
   filter: none;
 }
+/* ======================
+   GALLERY COUNTER
+====================== */
+.gallery-counter {
+  position: fixed;
+  top: 22px;
+  right: 78px; /* a sinistra della X */
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  opacity: 0.75;
+  z-index: 10000;
+  user-select: none;
+  pointer-events: none;
+}
+
+.gallery-counter .current {
+  color: var(--text-main);
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .gallery-counter {
+    top: 18px;
+    right: 64px;
+    font-size: 0.7rem;
+  }
+}
 
 /* Nascondi il testo visivamente ma mantienilo disponibile per assistive tech */
 .visually-hidden {

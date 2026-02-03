@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Toggle menu mobile
   const navToggle = document.getElementById("nav-toggle");
-  const nav = document.querySelector(".nav");  
+  const nav = document.querySelector(".nav");
 
   if (navToggle && nav) {
     // Assicura che l'attributo aria-expanded sia sincronizzato collo stato della nav
@@ -165,6 +165,9 @@ document.querySelectorAll(".fade-in").forEach((el) => observer.observe(el));
 const modal = document.getElementById("gallery-modal");
 const modalGallery = document.getElementById("modal-gallery");
 const closeModal = document.querySelector(".close-modal");
+const galleryCounter = document.querySelector(".gallery-counter");
+const counterCurrent = galleryCounter?.querySelector(".current");
+const counterTotal = galleryCounter?.querySelector(".total");
 
 let currentImages = [];
 let currentIndex = 0;
@@ -466,6 +469,9 @@ function showVideo(index) {
       nextBtn.classList.remove("hidden");
     }
   }
+
+  // aggiorna contatore video
+  updateCounter(currentIndex, currentVideos.length);
 }
 
 document.querySelectorAll(".album-card").forEach((card) => {
@@ -479,6 +485,7 @@ document.querySelectorAll(".album-card").forEach((card) => {
       showVideo(currentIndex);
       if (modal) modal.classList.add("open");
       document.body.classList.add("modal-open");
+      updateCounter(currentIndex, currentVideos.length);
     } else {
       // mostra immagini
       currentImages = albumImages[album];
@@ -490,6 +497,15 @@ document.querySelectorAll(".album-card").forEach((card) => {
     }
   });
 });
+
+function updateCounter(index, total) {
+  if (!galleryCounter || !counterCurrent || !counterTotal) return;
+
+  counterCurrent.textContent = index + 1;
+  counterTotal.textContent = total;
+
+  galleryCounter.style.display = total > 1 ? "block" : "none";
+}
 
 /* ======================
    MOSTRA IMMAGINE
@@ -516,6 +532,8 @@ function showImage(index = currentIndex) {
 
   modalGallery.appendChild(img);
   enableZoom(img);
+
+  updateCounter(currentIndex, currentImages.length);
 
   // Nascondi/mostra frecce
   if (prevBtn && nextBtn) {
@@ -580,6 +598,7 @@ if (modal) {
           currentIndex--;
         }
         showVideo(currentIndex);
+        updateCounter(currentIndex, currentVideos.length);
       } else {
         if (diff > 0 && currentIndex < currentImages.length - 1) {
           currentIndex++;
@@ -639,6 +658,7 @@ if (prevBtn) {
         currentIndex = currentVideos.length - 1; // loop
       }
       showVideo(currentIndex);
+      updateCounter(currentIndex, currentVideos.length);
     } else {
       if (currentIndex > 0) {
         currentIndex--;
@@ -692,6 +712,7 @@ document.addEventListener("keydown", (e) => {
       if (currentIndex < currentVideos.length - 1) currentIndex++;
       else currentIndex = 0;
       showVideo(currentIndex);
+      updateCounter(currentIndex, currentVideos.length);
     } else {
       if (currentIndex < currentImages.length - 1) currentIndex++;
       else currentIndex = 0;
