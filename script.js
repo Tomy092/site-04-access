@@ -277,12 +277,6 @@ const albumImages = {
     "immagini/gallery/lavori/lavorazioni-(98).webp",
     "immagini/gallery/lavori/lavorazioni-(99).webp",
     "immagini/gallery/lavori/lavorazioni-(100).webp",
-    "immagini/gallery/lavori/lavorazioni-(101).webp",
-    "immagini/gallery/lavori/lavorazioni-(102).webp",
-    "immagini/gallery/lavori/lavorazioni-(103).webp",
-    "immagini/gallery/lavori/lavorazioni-(104).webp",
-    "immagini/gallery/lavori/lavorazioni-(105).webp",
-    "immagini/gallery/lavori/lavorazioni-(106).webp",
   ],
 
   adrenalina: [
@@ -295,6 +289,15 @@ const albumImages = {
     "immagini/gallery/adrenalina/adrenalina-(7).webp",
     "immagini/gallery/adrenalina/adrenalina-(8).webp",
     "immagini/gallery/adrenalina/adrenalina-(9).webp",
+    "immagini/gallery/adrenalina/adrenalina-(10).webp",
+    "immagini/gallery/adrenalina/adrenalina-(11).webp",
+    "immagini/gallery/adrenalina/adrenalina-(12).webp",
+    "immagini/gallery/adrenalina/adrenalina-(13).webp",
+    "immagini/gallery/adrenalina/adrenalina-(14).webp",
+    "immagini/gallery/adrenalina/adrenalina-(15).webp",
+    "immagini/gallery/adrenalina/adrenalina-(16).webp",
+    "immagini/gallery/adrenalina/adrenalina-(17).webp",
+    
   ],
   finiture: [
     "immagini/gallery/interni/interni-(1).webp",
@@ -303,6 +306,7 @@ const albumImages = {
     "immagini/gallery/interni/interni-(4).webp",
     "immagini/gallery/interni/interni-(5).webp",
     "immagini/gallery/interni/interni-(6).webp",
+    "immagini/gallery/interni/interni-(7).webp",
   ],
 };
 const albumVideos = {
