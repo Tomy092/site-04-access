@@ -846,6 +846,7 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1.5rem;
   position: relative; /* necessario per overlay play positioned absolute */
+   transition: opacity 0.15s ease;
 }
 
 .modal-gallery img {
