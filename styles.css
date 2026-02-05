@@ -181,7 +181,7 @@ body {
   position: relative;
   min-height: 100vh;
   padding-top: 72px; /* spazio per l'header */
-  background-image: url("immagini/background/herocc.webp");
+  background-image: url("immagini/background/hero-background.webp");
   background-size: cover;
   background-position: center;
   color: var(--text-main);

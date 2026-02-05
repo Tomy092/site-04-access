@@ -1,0 +1,17 @@
+Da qui in poi
+
+Ora che HTML + CSS + JS sono completi e analizzati:
+
+👉 Dimmi tu una sola cosa per volta, ad esempio:
+
+“Rifiniamo la modale su desktop”
+
+“Miglioriamo PageSpeed / LCP”
+
+“Focus trap nella modale”
+
+“Riduciamo peso gallery”
+
+“Pulizia codice senza cambiare comportamento”
+
+Io eseguirò solo quello che mi chiedi, in modo chirurgico.
