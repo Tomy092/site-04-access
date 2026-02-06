@@ -52,10 +52,22 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
     <link
+      rel="preload"
+      as="style"
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
-      rel="stylesheet"
+      onload="this.rel = 'stylesheet'"
     />
+
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+      />
+    </noscript>
 
     <!-- FAVICON -->
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
@@ -90,7 +102,15 @@
     </script>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="preload"
+      href="styles.css"
+      as="style"
+      onload="this.rel = 'stylesheet'"
+    />
+    <noscript>
+      <link rel="stylesheet" href="styles.css" />
+    </noscript>
   </head>
 
   <body>
