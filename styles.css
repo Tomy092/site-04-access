@@ -195,6 +195,28 @@ body {
     linear-gradient(to bottom, rgba(5, 7, 17, 0.9), rgba(5, 7, 17, 1));
 }
 
+/* Silhouette decorativa sopra hero */
+.hero-silhouette {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 45%;
+  background: url("immagini/ui/silhouette-rope.webp") no-repeat right bottom;
+  background-size: contain;
+  opacity: 0.25;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Nascondi su mobile (come prima) */
+@media (max-width: 768px) {
+  .hero-silhouette {
+    display: none;
+  }
+}
+
+
 .hero-content {
   position: relative;
   z-index: 2;
@@ -1099,22 +1121,17 @@ body.modal-open {
   box-shadow: 0 20px 45px rgba(0,0,0,0.45);
 }
 
-/* Silhouette tecnica */
 .trust-bg1 {
-   position: absolute;
+  position: absolute;
   top: 0;
   right: 0;
-  height: 100%;          /* copre TUTTA l’altezza */
-  width: 45%;            /* solo una porzione orizzontale */
-
-  background: url("immagini/ui/silhouette-rope.webp") no-repeat right bottom;
-  background-size: contain;
-
+  height: 100%;
+  width: 45%;
+  object-fit: contain;
   opacity: 0.35;
   pointer-events: none;
   z-index: 1;
 }
-
 
 .trust-bg {
   position: absolute;

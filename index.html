@@ -101,6 +101,13 @@
       }
     </script>
 
+    <link
+      rel="preload"
+      as="image"
+      href="immagini/ui/silhouette-rope.webp"
+      fetchpriority="high"
+    />
+
     <!-- CSS -->
     <link
       rel="preload"
@@ -145,6 +152,9 @@
     <!-- HERO / HOME -->
     <main id="home" class="hero">
       <div class="hero-overlay"></div>
+      
+      <!-- Silhouette decorativa hero (non LCP) -->
+      <div class="hero-silhouette" aria-hidden="true"></div>
 
       <!-- Silhouette tecnica in background -->
       <div class="trust-bg1" aria-hidden="true"></div>
@@ -392,8 +402,15 @@
 
           <!-- ✅ TRUST PANEL INSERITO QUI -->
           <div class="trust-panel">
-            <!-- Silhouette tecnica in background -->
-            <div class="trust-bg" aria-hidden="true"></div>
+            <!-- Silhouette tecnica in background (LCP ottimizzato) -->
+            <img
+              src="immagini/ui/silhouette-rope.webp"
+              alt=""
+              class="trust-bg1"
+              aria-hidden="true"
+              fetchpriority="high"
+              decoding="async"
+            />
 
             <h3 class="trust-title">Perché scegliere AXES</h3>
 
