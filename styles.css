@@ -437,7 +437,31 @@ body {
   padding: 1.4rem 1.3rem;
   border: 1px solid var(--border-subtle);
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+  position: relative;
 }
+
+/* ======================
+   CARD – CLICKABLE (SUBTLE)
+
+
+.section-cards .card {
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.section-cards .card:hover {
+  border-color: var(--accent);
+}
+
+
+.section-cards .card h3 {
+  transition: color 0.15s ease;
+}
+
+.section-cards .card:hover h3 {
+  color: var(--accent);
+}
+====================== */
 
 .card h3 {
   font-size: 1.05rem;
@@ -1386,6 +1410,40 @@ body.modal-open {
 .gallery-section,
 .footer {
   contain: layout paint;
+}
+
+/* ======================
+   SERVICE PAGES – NAV CONSISTENCY
+====================== */
+
+.service-page.hero {
+  min-height: auto;
+}
+
+.service-hero {
+  padding-top: 10vh;
+  padding-bottom: 6vh;
+}
+
+
+
+.service-page .hero-content {
+  padding-top: 6vh; /* NON 10vh come la home */
+}
+
+.service-page h1 {
+  margin-bottom: 0.8rem;
+}
+
+.service-page p {
+  margin-top: 0;
+}
+
+
+@media (max-width: 1024px) {
+  .service-page {
+    padding-top: 72px;
+  }
 }
 
 
