@@ -7,7 +7,6 @@
 
 html {
   scroll-behavior: smooth;
-  font-size-adjust: 0.52;
 }
 
 body {
@@ -16,7 +15,6 @@ body {
   background: #050711;
   color: #f5f5f5;
   line-height: 1.6;
-  font-size-adjust: 0.52;
 }
 
 /* Skip link visibility */

@@ -7,7 +7,7 @@
     <!-- SEO TITLE -->
     <title>AXES | Lavori in fune e manutenzioni edili in quota</title>
 
-    <!-- CANONICAL (UNICO) -->
+    <!-- CANONICAL -->
     <link rel="canonical" href="https://www.axes-ras.it/" />
 
     <!-- SEO DESCRIPTION -->
@@ -16,7 +16,7 @@
       content="AXES è specializzata in lavori in fune per edifici civili e industriali: manutenzioni edili, facciate, tetti, grondaie e interventi in quota senza ponteggi."
     />
 
-    <!-- Indicizzazione -->
+    <!-- Robots -->
     <meta name="robots" content="index,follow" />
 
     <!-- Theme -->
@@ -49,37 +49,15 @@
       content="Lavori in fune professionali per facciate, tetti e strutture complesse. Interventi rapidi, sicuri e senza ponteggi."
     />
 
-    <!-- Google Fonts -->
     <!-- =========================
-     PERFORMANCE – FONT CRITICI
+         GOOGLE FONTS – CORRETTO
     ========================= -->
 
-    <!-- Preconnect immediato -->
+    <!-- Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- Preload font reali (rompe la catena LCP) -->
-    <link
-      rel="preload"
-      href="https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrJJfedA.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-
-    <link
-      rel="preload"
-      href="https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6Z1JlFc-K.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
+    <!-- Preload stylesheet Google Fonts -->
     <link
       rel="preload"
       as="style"
@@ -97,7 +75,18 @@
     <!-- FAVICON -->
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
 
-    <!-- SCHEMA.ORG LOCALBUSINESS -->
+    <!-- PRELOAD IMMAGINE CRITICA -->
+    <link
+      rel="preload"
+      as="image"
+      href="immagini/ui/silhouette-rope.webp"
+      fetchpriority="high"
+    />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css" />
+
+    <!-- SCHEMA.ORG LOCAL BUSINESS -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -106,10 +95,11 @@
         "name": "AXES - Rope Access Services",
         "url": "https://www.axes-ras.it/",
         "logo": "https://www.axes-ras.it/immagini/loghi/logo-ufficiale-per-sito.webp",
-        "image": "https://www.axes-ras.it/immagini/loghi/logo-ufficiale-per-sito.webp",
-        "description": "AXES è specializzata in lavori in quota e lavori su fune a Milano e in Lombardia. Esegue manutenzioni edili, interventi su facciate, tetti e strutture complesse senza ponteggi.",
+        "image": "https://www.axes-ras.it/immagini/background/hero-background.webp",
+        "description": "AXES è specializzata in lavori in quota e lavori su fune a Milano e in Lombardia. Manutenzioni edili, facciate, tetti e interventi senza ponteggi.",
         "telephone": "+393516079795",
         "email": "amministrazione@axes-ras.it",
+        "priceRange": "€€",
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "Viale Beatrice D'Este 26",
@@ -121,53 +111,7 @@
           "@type": "AdministrativeArea",
           "name": "Lombardia"
         },
-        "sameAs": ["https://www.instagram.com/axes.rope.access.services"],
-        "priceRange": "$$"
-      }
-    </script>
-
-    <link
-      rel="preload"
-      as="image"
-      href="immagini/ui/silhouette-rope.webp"
-      fetchpriority="high"
-    />
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="styles.css" />
-
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        "@id": "https://www.axes-ras.it/#localbusiness",
-        "name": "AXES Rope Access Services",
-        "url": "https://www.axes-ras.it/",
-        "logo": "https://www.axes-ras.it/immagini/loghi/logo-ufficiale-per-sito.webp",
-        "image": "https://www.axes-ras.it/immagini/background/hero-background.webp",
-        "description": "AXES è specializzata in lavori in fune e interventi edili in quota: manutenzione facciate, pulizie e lavaggio vetri, ispezioni e installazioni senza ponteggi.",
-        "telephone": "+39 333 123 4567",
-        "areaServed": {
-          "@type": "AdministrativeArea",
-          "name": "Milano e Lombardia"
-        },
-        "address": {
-          "@type": "PostalAddress",
-          "addressCountry": "IT",
-          "addressRegion": "Lombardia",
-          "addressLocality": "Milano"
-        },
-        "sameAs": [
-          "https://www.instagram.com/axes.ras",
-          "https://www.facebook.com/axes.ras"
-        ],
-        "priceRange": "€€",
-        "openingHoursSpecification": {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-          "opens": "08:00",
-          "closes": "18:00"
-        }
+        "sameAs": ["https://www.instagram.com/axes.rope.access.services"]
       }
     </script>
   </head>
