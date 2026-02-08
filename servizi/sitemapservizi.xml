@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- HOME -->
+  <url>
+    <loc>https://www.axes-ras.it/</loc>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- HUB SERVIZI -->
+  <url>
+    <loc>https://www.axes-ras.it/servizi/</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- PAGINE SERVIZI -->
+  <url>
+    <loc>https://www.axes-ras.it/servizi/manutenzione-facciate.html</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.axes-ras.it/servizi/pulizie-lavaggio-vetri.html</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.axes-ras.it/servizi/ispezioni-installazioni.html</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- PRIVACY -->
+  <url>
+    <loc>https://www.axes-ras.it/privacy.html</loc>
+    <priority>0.3</priority>
+  </url>
+
+</urlset>
