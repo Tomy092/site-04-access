@@ -270,13 +270,6 @@ const albumImages = {
     "immagini/gallery/lavori/lavorazioni-(92).webp",
     "immagini/gallery/lavori/lavorazioni-(93).webp",
     "immagini/gallery/lavori/lavorazioni-(93).webp",
-    "immagini/gallery/lavori/lavorazioni-(94).webp",
-    "immagini/gallery/lavori/lavorazioni-(95).webp",
-    "immagini/gallery/lavori/lavorazioni-(96).webp",
-    "immagini/gallery/lavori/lavorazioni-(97).webp",
-    "immagini/gallery/lavori/lavorazioni-(98).webp",
-    "immagini/gallery/lavori/lavorazioni-(99).webp",
-    "immagini/gallery/lavori/lavorazioni-(100).webp",
   ],
 
   adrenalina: [
