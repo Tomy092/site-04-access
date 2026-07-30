@@ -146,18 +146,27 @@ document.addEventListener("DOMContentLoaded", () => {
 /* ======================
    ON SCROLL ANIMATION
 ====================== */
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-      }
-    });
-  },
-  { threshold: 0.2 },
-);
+const fadeElements = document.querySelectorAll(".fade-in");
 
-document.querySelectorAll(".fade-in").forEach((el) => observer.observe(el));
+if ("IntersectionObserver" in window && fadeElements.length > 0) {
+  const observer = new IntersectionObserver(
+    (entries, currentObserver) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+
+        entry.target.classList.add("visible");
+
+        // L'elemento non deve più essere controllato dopo l'animazione.
+        currentObserver.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.2 },
+  );
+
+  fadeElements.forEach((element) => observer.observe(element));
+} else {
+  fadeElements.forEach((element) => element.classList.add("visible"));
+}
 
 /* ======================
    GALLERIA MODALE
@@ -269,7 +278,6 @@ const albumImages = {
     "immagini/gallery/lavori/lavorazioni-(91).webp",
     "immagini/gallery/lavori/lavorazioni-(92).webp",
     "immagini/gallery/lavori/lavorazioni-(93).webp",
-    "immagini/gallery/lavori/lavorazioni-(93).webp",
   ],
 
   adrenalina: [
@@ -341,7 +349,7 @@ function showVideo(index) {
     return;
 
   currentIndex = typeof index === "number" ? index : currentIndex;
-  modalGallery.innerHTML = "";
+  modalGallery.replaceChildren();
   // Segnala che la modale contiene un video per applicare stili specifici
   modalGallery.classList.add("is-video");
 
@@ -517,7 +525,7 @@ function showImage(index = currentIndex) {
     return;
 
   currentIndex = typeof index === "number" ? index : currentIndex;
-  modalGallery.innerHTML = "";
+  modalGallery.replaceChildren();
 
   // Rimuovi eventuale flag video quando mostriamo immagini
   modalGallery.classList.remove("is-video");
@@ -576,36 +584,47 @@ if (closeModal) {
 let startX = 0;
 
 if (modal) {
-  modal.addEventListener("touchstart", (e) => {
-    if (e.touches.length === 1) {
-      startX = e.touches[0].clientX;
-    }
-  });
-
-  modal.addEventListener("touchend", (e) => {
-    if (!e.changedTouches || e.changedTouches.length === 0) return;
-    const endX = e.changedTouches[0].clientX;
-    const diff = startX - endX;
-
-    if (Math.abs(diff) > 50) {
-      if (isVideoModal) {
-        if (diff > 0 && currentIndex < currentVideos.length - 1) {
-          currentIndex++;
-        } else if (diff < 0 && currentIndex > 0) {
-          currentIndex--;
-        }
-        showVideo(currentIndex);
-        updateCounter(currentIndex, currentVideos.length);
-      } else {
-        if (diff > 0 && currentIndex < currentImages.length - 1) {
-          currentIndex++;
-        } else if (diff < 0 && currentIndex > 0) {
-          currentIndex--;
-        }
-        showImage(currentIndex);
+  modal.addEventListener(
+    "touchstart",
+    (e) => {
+      if (e.touches.length === 1) {
+        startX = e.touches[0].clientX;
       }
-    }
-  });
+    },
+    { passive: true },
+  );
+
+  modal.addEventListener(
+    "touchend",
+    (e) => {
+      if (!e.changedTouches || e.changedTouches.length === 0) return;
+
+      const endX = e.changedTouches[0].clientX;
+      const diff = startX - endX;
+
+      if (Math.abs(diff) > 50) {
+        if (isVideoModal) {
+          if (diff > 0 && currentIndex < currentVideos.length - 1) {
+            currentIndex++;
+          } else if (diff < 0 && currentIndex > 0) {
+            currentIndex--;
+          }
+
+          showVideo(currentIndex);
+          updateCounter(currentIndex, currentVideos.length);
+        } else {
+          if (diff > 0 && currentIndex < currentImages.length - 1) {
+            currentIndex++;
+          } else if (diff < 0 && currentIndex > 0) {
+            currentIndex--;
+          }
+
+          showImage(currentIndex);
+        }
+      }
+    },
+    { passive: true },
+  );
 }
 
 let scale = 1;
@@ -619,31 +638,57 @@ function getDistance(touches) {
 
 function enableZoom(img) {
   scale = 1;
+  let zoomFrame = null;
 
-  img.addEventListener("touchstart", (e) => {
-    if (e.touches.length === 2) {
-      startDist = getDistance(e.touches);
-    }
-  });
+  img.addEventListener(
+    "touchstart",
+    (e) => {
+      if (e.touches.length === 2) {
+        startDist = getDistance(e.touches);
+      }
+    },
+    { passive: true },
+  );
 
-  img.addEventListener("touchmove", (e) => {
-    if (e.touches.length === 2) {
-      const dist = getDistance(e.touches);
-      scale = Math.min(Math.max(dist / startDist, 1), 3);
-      img.style.transform = `scale(${scale})`;
-    }
-  });
+  img.addEventListener(
+    "touchmove",
+    (e) => {
+      if (e.touches.length !== 2 || startDist <= 0) return;
 
-  img.addEventListener("touchend", () => {
-    if (scale <= 1) img.style.transform = "scale(1)";
-  });
+      const distance = getDistance(e.touches);
+      const nextScale = Math.min(Math.max(distance / startDist, 1), 3);
+
+      if (zoomFrame !== null) {
+        cancelAnimationFrame(zoomFrame);
+      }
+
+      zoomFrame = requestAnimationFrame(() => {
+        scale = nextScale;
+        img.style.transform = `scale(${scale})`;
+        zoomFrame = null;
+      });
+    },
+    { passive: true },
+  );
+
+  img.addEventListener(
+    "touchend",
+    () => {
+      if (scale <= 1) {
+        img.style.transform = "scale(1)";
+      }
+    },
+    { passive: true },
+  );
 }
 
 const prevBtn = document.querySelector(".gallery-nav.prev");
 const nextBtn = document.querySelector(".gallery-nav.next");
 
 // Ritorna true su Mobile/Tablet (<=1024px)
-const isSmallScreen = () => window.matchMedia("(max-width:1024px)").matches;
+const smallScreenMediaQuery = window.matchMedia("(max-width: 1024px)");
+
+const isSmallScreen = () => smallScreenMediaQuery.matches;
 
 if (prevBtn) {
   prevBtn.addEventListener("click", (e) => {
